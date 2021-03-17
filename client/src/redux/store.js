@@ -7,15 +7,23 @@ import {
   stockDetailsReducer,
   stockNewsReducer,
 } from './reducers/stockReducers';
+import { userLoginReducer } from './reducers/userReducers';
 
 const reducer = combineReducers({
   stockGainers: stockGainersReducer,
   stockLosers: stockLosersReducer,
   stockDetails: stockDetailsReducer,
   stockNews: stockNewsReducer,
+  userLogin: userLoginReducer,
 });
 
-const initialState = {};
+const userInfoFromStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null;
+
+const initialState = {
+  userLogin: { userInfo: userInfoFromStorage },
+};
 
 const middleware = [thunk];
 
