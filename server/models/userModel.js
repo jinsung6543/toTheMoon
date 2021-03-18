@@ -16,9 +16,13 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    balance: {
+    cash: {
       type: Number,
-      required: true,
+      default: 100000,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
     },
   },
   {

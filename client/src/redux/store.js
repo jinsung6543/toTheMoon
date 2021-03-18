@@ -7,7 +7,11 @@ import {
   stockDetailsReducer,
   stockNewsReducer,
 } from './reducers/stockReducers';
-import { userLoginReducer } from './reducers/userReducers';
+import {
+  userLoginReducer,
+  userProfileReducer,
+  userRegisterReducer,
+} from './reducers/userReducers';
 
 const reducer = combineReducers({
   stockGainers: stockGainersReducer,
@@ -15,6 +19,8 @@ const reducer = combineReducers({
   stockDetails: stockDetailsReducer,
   stockNews: stockNewsReducer,
   userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
+  userProfile: userProfileReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
