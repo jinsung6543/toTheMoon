@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, ListGroup, Card, Button, Table } from 'react-bootstrap';
 import News from '../components/stock/News';
-import Order from '../components/Order';
+import Order from '../components/stock/Order';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { getStockDetails } from '../redux/actions/stockActions';

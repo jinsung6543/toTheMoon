@@ -1,14 +1,16 @@
 import express from 'express';
 import {
-  addOrderStock,
+  buyStock,
+  sellStock,
   getOrderById,
   getPortfolio,
-} from '../controllers/orderController.js';
+} from '../controllers/stockController.js';
 import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.route('/').post(protect, addOrderStock);
+router.route('/buy').post(protect, buyStock);
+router.route('/sell').post(protect, sellStock);
 router.route('/portfolio').get(protect, getPortfolio);
 router.route('/:id').get(protect, getOrderById);
 

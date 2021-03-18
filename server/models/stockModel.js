@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const orderSchema = mongoose.Schema(
+const stockSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -19,16 +19,12 @@ const orderSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
-    buyOrSell: {
-      type: String,
-      required: true,
-    },
   },
   {
     timestamps: true,
   }
 );
 
-const Order = mongoose.model('Order', orderSchema);
+const Stock = mongoose.model('Stock', stockSchema);
 
-export default Order;
+export default Stock;

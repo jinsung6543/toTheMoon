@@ -91,7 +91,7 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
       user.password = req.body.password;
     }
 
-    const updatedUser = await user.save();
+    await user.save();
 
     res.json({
       _id: user._id,
