@@ -1,7 +1,12 @@
 import mongoose from 'mongoose';
 
-const stockSchema = mongoose.Schema(
+const portfolioSchema = mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
     symbol: {
       type: String,
       required: true,
@@ -20,6 +25,6 @@ const stockSchema = mongoose.Schema(
   }
 );
 
-const Stock = mongoose.model('Stock', stockSchema);
+const Portfolio = mongoose.model('Portfolio', portfolioSchema);
 
-export default Stock;
+export default Portfolio;
