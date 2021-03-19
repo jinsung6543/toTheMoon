@@ -6,33 +6,6 @@ import Message from '../Message';
 import Loader from '../Loader';
 import { getGainers, getLosers } from '../../redux/actions/stockActions';
 
-// const stocks = [
-//   {
-//     symbol: 'GME',
-//     name: 'GampeStop Corp',
-//     pChange: -5.9,
-//     price: 207.14,
-//   },
-//   {
-//     symbol: 'TSLA',
-//     name: 'Tesla Inc',
-//     pChange: -4.39,
-//     price: 676.88,
-//   },
-//   {
-//     symbol: 'PLTR',
-//     name: 'Palantir Technologies Inc.',
-//     pChange: -4.4,
-//     price: 25.61,
-//   },
-//   {
-//     symbol: 'NVDA',
-//     name: 'NVIDIA Corporation',
-//     pChange: 0.76,
-//     price: 531.65,
-//   },
-// ];
-
 const Movers = ({ type }) => {
   const dispatch = useDispatch();
 

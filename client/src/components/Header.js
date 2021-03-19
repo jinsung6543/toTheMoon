@@ -1,8 +1,10 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { logout } from '../redux/actions/userActions';
+import Search from './Search';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -21,6 +23,8 @@ const Header = () => {
           <LinkContainer to="/">
             <Navbar.Brand>toTheMoon</Navbar.Brand>
           </LinkContainer>
+
+          <Route render={({ history }) => <Search history={history} />} />
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

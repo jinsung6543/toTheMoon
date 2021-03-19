@@ -1,4 +1,5 @@
 import React from 'react';
+import Search from '../components/Search';
 import Movers from '../components/stock/Movers';
 
 const HomeScreen = () => {

@@ -136,6 +136,14 @@ export const getOrderById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc   Get logged in user orders
+// @route  GET /api/stocks/orders
+// @access Private
+export const getOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.user._id });
+  res.json(orders);
+});
+
 // @desc  Get logged in user orders
 // @route GET /api/stocks/portfolio
 // @access Private

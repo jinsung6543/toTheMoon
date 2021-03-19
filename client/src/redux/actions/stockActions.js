@@ -84,7 +84,9 @@ export const getStockDetails = (symbol) => async (dispatch) => {
 
   try {
     const { data } = await iex.get(
-      `/${symbol}/quote?token=${process.env.REACT_APP_IEX_API_TOKEN}`
+      `/${symbol.toUpperCase()}/quote?token=${
+        process.env.REACT_APP_IEX_API_TOKEN
+      }`
     );
 
     dispatch({

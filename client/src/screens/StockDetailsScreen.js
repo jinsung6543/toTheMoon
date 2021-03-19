@@ -24,7 +24,7 @@ const StockDetailsScreen = ({ match }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message variant="danger">Stock not found</Message>
       ) : (
         <>
           <Row>
@@ -46,7 +46,7 @@ const StockDetailsScreen = ({ match }) => {
             </Col>
             <Col md={6}>CHART TO BE ADDED</Col>
             <Col md={3}>
-              <Order symbol={symbol} price={stock.latestPrice} />
+              <Order symbol={symbol.toUpperCase()} price={stock.latestPrice} />
             </Col>
           </Row>
           <Row>
