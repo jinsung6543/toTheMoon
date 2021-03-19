@@ -6,6 +6,10 @@ import {
   stockLosersReducer,
   stockDetailsReducer,
   stockNewsReducer,
+  stockHoldingReducer,
+  stockBuyReducer,
+  stockSellReducer,
+  stockPortfolioReducer,
 } from './reducers/stockReducers';
 import {
   userLoginReducer,
@@ -19,6 +23,10 @@ const reducer = combineReducers({
   stockLosers: stockLosersReducer,
   stockDetails: stockDetailsReducer,
   stockNews: stockNewsReducer,
+  stockHolding: stockHoldingReducer,
+  stockBuy: stockBuyReducer,
+  stockSell: stockSellReducer,
+  stockPortfolio: stockPortfolioReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userProfile: userProfileReducer,

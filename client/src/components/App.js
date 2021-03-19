@@ -8,6 +8,7 @@ import LoginScreen from '../screens/LoginScreen';
 import StockDetailsScreen from '../screens/StockDetailsScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import DashboardScreen from '../screens/DashboardScreen';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Container fluid>
             <Route path="/login" component={LoginScreen} />
             <Route path="/profile" component={ProfileScreen} />
+            <Route path="/dashboard" component={DashboardScreen} />
             <Route path="/register" component={RegisterScreen} />
             <Route path="/quote/:symbol" component={StockDetailsScreen} />
             <Route path="/" component={HomeScreen} exact />

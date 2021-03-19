@@ -12,7 +12,7 @@ export const buyStock = asyncHandler(async (req, res) => {
 
   if (user.cash < price * quantity || (symbol && quantity === 0)) {
     res.status(400);
-    throw new Error('Must set quantity');
+    throw new Error('Invalid quantity');
   } else {
     let avgPrice, totalQuantity, existingStock;
     existingStock = await Stock.findOne({ symbol });
@@ -66,7 +66,7 @@ export const sellStock = asyncHandler(async (req, res) => {
 
   if (!existingStock || quantity > existingStock.quantity) {
     res.status(400);
-    throw new Error('Not enough stocks to sell');
+    throw new Error('Invalid quantity');
   } else {
     if (symbol && quantity === 0) {
       res.status(400);
@@ -93,11 +93,29 @@ export const sellStock = asyncHandler(async (req, res) => {
       user.cash += price * quantity;
       await user.save();
 
-      await stock.save();
+      if (existingStock.quantity > quantity) {
+        await stock.save();
+      }
       const createdOrder = await order.save();
 
       res.status(201).json(createdOrder);
     }
+  }
+});
+
+// @desc  Get stock by symbol
+// @route GET /api/stocks/:symbol
+// @access Private
+export const getStockBySymbol = asyncHandler(async (req, res) => {
+  const { symbol } = req.params;
+  const stock = await Stock.findOne({ symbol });
+
+  if (stock) {
+    res.json(stock);
+  } else {
+    res.json({
+      message: 'Stock not found',
+    });
   }
 });
 
@@ -122,6 +140,6 @@ export const getOrderById = asyncHandler(async (req, res) => {
 // @route GET /api/stocks/portfolio
 // @access Private
 export const getPortfolio = asyncHandler(async (req, res) => {
-  const orders = await Order.find({}).populate('user', 'id name');
-  res.json(orders);
+  const stocks = await Stock.find({ user: req.user._id });
+  res.json(stocks);
 });
