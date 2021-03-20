@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { createChart } from 'lightweight-charts';
+import { createChart, isBusinessDay } from 'lightweight-charts';
 
-const StockChart = ({ chartData, width }) => {
+const StockChart = ({ chartData, width, symbol }) => {
   useEffect(() => {
     let dailyPrice = [];
+    let height = 400;
 
     for (const prop in chartData) {
       dailyPrice.push({
@@ -15,55 +16,129 @@ const StockChart = ({ chartData, width }) => {
     let node = document.createElement('div');
     node.setAttribute('id', 'chart');
     document.getElementById('chart-container').appendChild(node);
+    const chartDOM = document.getElementById('chart');
 
-    const chart = createChart(document.getElementById('chart'), {
+    const chart = createChart(chartDOM, {
       width: width,
-      height: 400,
-      layout: {
-        textColor: '#d1d4dc',
-        backgroundColor: '#000000',
+      height: height,
+      leftPriceScale: {
+        scaleMargins: {
+          top: 0.2,
+          bottom: 0.2,
+        },
+        visible: true,
+        borderVisible: false,
       },
       rightPriceScale: {
-        scaleMargins: {
-          top: 0.3,
-          bottom: 0.25,
-        },
+        visible: false,
+      },
+      timeScale: {
+        borderVisible: false,
       },
       crosshair: {
-        vertLine: {
-          width: 5,
-          color: 'rgba(224, 227, 235, 0.1)',
-          style: 0,
-        },
         horzLine: {
           visible: false,
           labelVisible: false,
         },
+        vertLine: {
+          visible: true,
+          style: 0,
+          width: 2,
+          color: 'rgba(32, 38, 46, 0.1)',
+          labelVisible: false,
+        },
+      },
+      layout: {
+        backgroundColor: '#2B2B43',
+        lineColor: '#2B2B43',
+        textColor: '#D9D9D9',
+      },
+      watermark: {
+        color: 'rgba(0, 0, 0, 0)',
       },
       grid: {
         vertLines: {
-          color: 'rgba(42, 46, 57, 0)',
+          color: '#2B2B43',
         },
         horzLines: {
-          color: 'rgba(42, 46, 57, 0)',
+          color: '#363C4E',
         },
       },
     });
 
     const areaSeries = chart.addAreaSeries({
-      topColor: 'rgba(38, 198, 218, 0.56)',
-      bottomColor: 'rgba(38, 198, 218, 0.04)',
-      lineColor: 'rgba(38, 198, 218, 1)',
-      lineWidth: 1,
-      crossHairMarkerVisible: false,
+      topColor: 'rgba(32, 226, 47, 0.56)',
+      bottomColor: 'rgba(32, 226, 47, 0.04)',
+      lineColor: 'rgba(32, 226, 47, 1)',
     });
 
     areaSeries.setData(dailyPrice.reverse());
 
+    function businessDayToString(businessDay) {
+      return new Date(
+        Date.UTC(
+          businessDay.year,
+          businessDay.month - 1,
+          businessDay.day,
+          0,
+          0,
+          0
+        )
+      ).toLocaleDateString();
+    }
+
+    let toolTipWidth = 96;
+    let toolTipMargin = 15;
+    let priceScaleWidth = 50;
+
+    let toolTip = document.createElement('div');
+    toolTip.className = 'floating-tooltip-2';
+    chartDOM.appendChild(toolTip);
+
+    // update tooltip
+    chart.subscribeCrosshairMove((param) => {
+      if (
+        !param.time ||
+        param.point.x < 0 ||
+        param.point.y < 0 ||
+        param.point.y > height
+      ) {
+        toolTip.style.display = 'none';
+        return;
+      }
+
+      let dateStr = isBusinessDay(param.time)
+        ? businessDayToString(param.time)
+        : new Date(param.time * 1000).toLocaleDateString();
+
+      toolTip.style.display = 'block';
+      let price = param.seriesPrices.get(areaSeries);
+      toolTip.innerHTML =
+        `<div style="color: rgba(32, 226, 47, 1)">⬤ ${symbol}</div>` +
+        '<div style="font-size: 24px; margin: 4px 0px; color: #fff">' +
+        (Math.round(price * 100) / 100).toFixed(2) +
+        '</div>' +
+        '<div style="color: #fff">' +
+        dateStr +
+        '</div>';
+
+      let left = param.point.x;
+
+      if (left > width - toolTipWidth - toolTipMargin) {
+        left = width - toolTipWidth;
+      } else if (left < toolTipWidth / 2) {
+        left = priceScaleWidth;
+      }
+
+      toolTip.style.left = left + 'px';
+      toolTip.style.height = height + 'px';
+    });
+
     return () => {
-      document.getElementById('chart').remove();
+      document.getElementById('chart') &&
+        document.getElementById('chart').remove();
     };
-  }, [chartData, width]);
+  }, [chartData, width, symbol]);
 
   return <div id="chart-container"></div>;
 };

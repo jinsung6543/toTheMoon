@@ -30,6 +30,8 @@ const StockDetailsScreen = ({ match }) => {
   } = stockChartData;
 
   useEffect(() => {
+    setWidth(ref.current.offsetWidth);
+
     const handleResize = () => {
       setWidth(ref.current.offsetWidth);
     };
@@ -74,7 +76,13 @@ const StockDetailsScreen = ({ match }) => {
               ) : error ? (
                 <Message variant="danger">Error loading chart</Message>
               ) : (
-                chartData && <StockChart chartData={chartData} width={width} />
+                chartData && (
+                  <StockChart
+                    chartData={chartData}
+                    width={width}
+                    symbol={symbol}
+                  />
+                )
               )}
             </Col>
             <Col md={3}>
