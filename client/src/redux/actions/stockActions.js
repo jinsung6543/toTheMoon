@@ -19,6 +19,9 @@ import {
   STOCK_NEWS_FAIL,
   STOCK_NEWS_REQUEST,
   STOCK_NEWS_SUCCESS,
+  STOCK_ORDER_LIST_FAIL,
+  STOCK_ORDER_LIST_REQUEST,
+  STOCK_ORDER_LIST_SUCCESS,
   STOCK_PORTFOLIO_FAIL,
   STOCK_PORTFOLIO_REQUEST,
   STOCK_PORTFOLIO_SUCCESS,
@@ -269,6 +272,40 @@ export const getPortfolio = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: STOCK_PORTFOLIO_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getOrderList = () => async (dispatch, getState) => {
+  dispatch({
+    type: STOCK_ORDER_LIST_REQUEST,
+  });
+
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/stocks/orders`, config);
+
+    dispatch({
+      type: STOCK_ORDER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: STOCK_ORDER_LIST_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

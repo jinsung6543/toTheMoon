@@ -7,6 +7,7 @@ import {
   getUserProfile,
   updateUserProfile,
 } from '../redux/actions/userActions';
+import { getOrderList } from '../redux/actions/stockActions';
 import { USER_PROFILE_UPDATE_RESET } from '../redux/constants/userConstants';
 
 const ProfileScreen = ({ history }) => {
@@ -27,6 +28,9 @@ const ProfileScreen = ({ history }) => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
+  const stockOrderList = useSelector((state) => state.stockOrderList);
+  const { loading: loadingOrders, error: errorOrders, orders } = stockOrderList;
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
@@ -37,6 +41,7 @@ const ProfileScreen = ({ history }) => {
       } else {
         setName(user.name);
         setEmail(user.email);
+        dispatch(getOrderList());
       }
     }
   }, [dispatch, history, userInfo, user, success]);
@@ -104,7 +109,7 @@ const ProfileScreen = ({ history }) => {
           </Button>
         </Form>
       </Col>
-      {/* <Col md={9}>
+      <Col md={9}>
         <h2>My Orders</h2>
         {loadingOrders ? (
           <Loader />
@@ -114,47 +119,27 @@ const ProfileScreen = ({ history }) => {
           <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>DATE</th>
-                <th>TOTAL</th>
-                <th>PAID</th>
-                <th>DELIVERED</th>
-                <th></th>
+                <th>Symbol</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((order) => (
                 <tr key={order._id}>
-                  <td>{order._id}</td>
-                  <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>{order.totalPrice}</td>
-                  <td>
-                    {order.isPaid ? (
-                      order.paidAt.substring(0, 10)
-                    ) : (
-                      <i className="fas fa-times" style={{ color: 'red' }}></i>
-                    )}
-                  </td>
-                  <td>
-                    {order.isDelivered ? (
-                      order.deliveredAt.substring(0, 10)
-                    ) : (
-                      <i className="fas fa-times" style={{ color: 'red' }}></i>
-                    )}
-                  </td>
-                  <td>
-                    <LinkContainer to={`/order/${order._id}`}>
-                      <Button className="btn-sm" variant="light">
-                        Details
-                      </Button>
-                    </LinkContainer>
+                  <td>{order.symbol}</td>
+                  <td>{order.price}</td>
+                  <td>{order.quantity}</td>
+                  <td className={order.buyOrSell === 'buy' ? 'green' : 'red'}>
+                    {order.buyOrSell.toUpperCase()}
                   </td>
                 </tr>
               ))}
             </tbody>
           </Table>
         )}
-      </Col> */}
+      </Col>
     </Row>
   );
 };

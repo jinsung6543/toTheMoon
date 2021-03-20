@@ -34,7 +34,7 @@ const StockDetailsScreen = ({ match }) => {
                   <h3>{stock.companyName}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <h1>${stock.latestPrice}</h1>
+                  <h1>${stock.latestPrice && stock.latestPrice.toFixed(2)}</h1>
                   <span className={stock.change > 0 ? 'green' : 'red'}>
                     ${stock.change}(
                     {stock.changePercent &&
@@ -82,7 +82,7 @@ const StockDetailsScreen = ({ match }) => {
                   </Row>
                   <Row>
                     <Col>Market Cap:</Col>
-                    <Col>{stock.marketCap}</Col>
+                    <Col>${stock.marketCap}</Col>
                   </Row>
                   <Row>
                     <Col>peRatio:</Col>

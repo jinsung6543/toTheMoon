@@ -6,12 +6,12 @@ const StockSummary = ({ stock }) => {
   const [currentPrice, setCurrentPrice] = useState(0);
 
   useEffect(() => {
-    async function getCurrentPrice() {
+    const getCurrentPrice = async () => {
       const { data } = await iex.get(
         `/${stock.symbol}/quote?token=${process.env.REACT_APP_IEX_API_TOKEN}`
       );
       setCurrentPrice(data.latestPrice);
-    }
+    };
     getCurrentPrice();
     return () => setCurrentPrice(0);
   }, [stock]);
@@ -21,7 +21,7 @@ const StockSummary = ({ stock }) => {
       <td>
         <Link to={`/quote/${stock.symbol}`}>{stock.symbol}</Link>
       </td>
-      <td>${stock.price}</td>
+      <td>${stock.price.toFixed(2)}</td>
       <td>${currentPrice}</td>
       <td>{stock.quantity}</td>
       <td>${(stock.quantity * stock.price).toFixed(2)}</td>
@@ -29,12 +29,12 @@ const StockSummary = ({ stock }) => {
         className={
           stock.price === currentPrice
             ? 'black'
-            : stock.price > currentPrice
+            : stock.price < currentPrice
             ? 'green'
             : 'red'
         }
       >
-        {((currentPrice - stock.price) / stock.price) * 100}%
+        {(((currentPrice - stock.price) / stock.price) * 100).toFixed(2)}%
       </td>
     </tr>
   );

@@ -23,6 +23,9 @@ import {
   STOCK_PORTFOLIO_REQUEST,
   STOCK_PORTFOLIO_SUCCESS,
   STOCK_PORTFOLIO_FAIL,
+  STOCK_ORDER_LIST_REQUEST,
+  STOCK_ORDER_LIST_SUCCESS,
+  STOCK_ORDER_LIST_FAIL,
 } from '../constants/stockConstants';
 
 export const stockGainersReducer = (state = { stocks: [] }, action) => {
@@ -123,6 +126,19 @@ export const stockPortfolioReducer = (state = { portfolio: [] }, action) => {
     case STOCK_PORTFOLIO_SUCCESS:
       return { loading: false, portfolio: action.payload };
     case STOCK_PORTFOLIO_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const stockOrderListReducer = (state = { orders: [] }, action) => {
+  switch (action.type) {
+    case STOCK_ORDER_LIST_REQUEST:
+      return { loading: true };
+    case STOCK_ORDER_LIST_SUCCESS:
+      return { loading: false, orders: action.payload };
+    case STOCK_ORDER_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

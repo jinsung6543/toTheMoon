@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import iex from '../apis/iex';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getPortfolio } from '../redux/actions/stockActions';
@@ -47,19 +46,28 @@ const DashboardScreen = () => {
               <tr>
                 <td>
                   $
-                  {(
-                    portfolio.reduce(
-                      (acc, cur) => acc + cur.price * cur.quantity,
-                      0
-                    ) + user.cash
-                  ).toFixed(2)}
+                  {user.cash &&
+                    parseFloat(
+                      (
+                        portfolio.reduce(
+                          (acc, cur) => acc + cur.price * cur.quantity,
+                          0
+                        ) + user.cash
+                      ).toFixed(2)
+                    ).toLocaleString()}
                 </td>
-                <td>${user.cash.toFixed(2)}</td>
                 <td>
                   $
-                  {portfolio
-                    .reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
-                    .toFixed(2)}
+                  {user.cash &&
+                    parseFloat(user.cash.toFixed(2)).toLocaleString()}
+                </td>
+                <td>
+                  $
+                  {parseFloat(
+                    portfolio
+                      .reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
+                      .toFixed(2)
+                  ).toLocaleString()}
                 </td>
               </tr>
             </tbody>

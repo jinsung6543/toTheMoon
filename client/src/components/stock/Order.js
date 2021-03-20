@@ -68,7 +68,7 @@ const Order = ({ symbol, price }) => {
               0
             ) : (
               <span>
-                {stock.quantity} @ ${stock.price}
+                {stock.quantity} @ ${stock.price && stock.price.toFixed(2)}
               </span>
             ))}
         </ListGroup.Item>
@@ -82,7 +82,11 @@ const Order = ({ symbol, price }) => {
             placeholder="Enter quantity"
             value={quantity.toString()}
             required
-            onChange={(e) => setQuantity(parseInt(e.target.value))}
+            onChange={(e) => {
+              setQuantity(
+                e.target.value ? parseInt(e.target.value) : e.target.value
+              );
+            }}
           ></FormControl>
         </InputGroup>
 

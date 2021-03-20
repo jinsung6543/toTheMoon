@@ -10,6 +10,7 @@ import {
   stockBuyReducer,
   stockSellReducer,
   stockPortfolioReducer,
+  stockOrderListReducer,
 } from './reducers/stockReducers';
 import {
   userLoginReducer,
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   stockBuy: stockBuyReducer,
   stockSell: stockSellReducer,
   stockPortfolio: stockPortfolioReducer,
+  stockOrderList: stockOrderListReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userProfile: userProfileReducer,
