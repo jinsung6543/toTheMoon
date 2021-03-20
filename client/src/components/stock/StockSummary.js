@@ -8,7 +8,7 @@ const StockSummary = ({ stock }) => {
   useEffect(() => {
     const getCurrentPrice = async () => {
       const { data } = await iex.get(
-        `/${stock.symbol}/quote?token=${process.env.REACT_APP_IEX_API_TOKEN}`
+        `/${stock.symbol}/quote?token=${process.env.REACT_APP_IEX_API_TOKEN2}`
       );
       setCurrentPrice(data.latestPrice);
     };

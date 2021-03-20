@@ -9,6 +9,7 @@ import StockDetailsScreen from '../screens/StockDetailsScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DashboardScreen from '../screens/DashboardScreen';
+import StockChart from './stock/StockChart';
 
 function App() {
   return (

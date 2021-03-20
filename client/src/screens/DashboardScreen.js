@@ -18,7 +18,7 @@ const DashboardScreen = () => {
   const { userInfo } = userLogin;
 
   const userProfile = useSelector((state) => state.userProfile);
-  const { loading: loadingU, error: errorU, user } = userProfile;
+  const { loading: loadingUser, error: errorUser, user } = userProfile;
 
   useEffect(() => {
     dispatch(getUserProfile('profile'));

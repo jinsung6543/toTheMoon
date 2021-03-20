@@ -4,6 +4,9 @@ import {
   STOCK_BUY_FAIL,
   STOCK_BUY_REQUEST,
   STOCK_BUY_SUCCESS,
+  STOCK_CHART_DATA_FAIL,
+  STOCK_CHART_DATA_REQUEST,
+  STOCK_CHART_DATA_SUCCESS,
   STOCK_DETAILS_FAIL,
   STOCK_DETAILS_REQUEST,
   STOCK_DETAILS_SUCCESS,
@@ -37,7 +40,7 @@ export const getGainers = () => async (dispatch) => {
 
   try {
     const { data } = await iex.get(
-      `/market/list/gainers?token=${process.env.REACT_APP_IEX_API_TOKEN}`
+      `/market/list/gainers?token=${process.env.REACT_APP_IEX_API_TOKEN2}`
     );
 
     dispatch({
@@ -62,7 +65,7 @@ export const getLosers = () => async (dispatch) => {
 
   try {
     const { data } = await iex.get(
-      `/market/list/losers?token=${process.env.REACT_APP_IEX_API_TOKEN}`
+      `/market/list/losers?token=${process.env.REACT_APP_IEX_API_TOKEN2}`
     );
 
     dispatch({
@@ -88,7 +91,7 @@ export const getStockDetails = (symbol) => async (dispatch) => {
   try {
     const { data } = await iex.get(
       `/${symbol.toUpperCase()}/quote?token=${
-        process.env.REACT_APP_IEX_API_TOKEN
+        process.env.REACT_APP_IEX_API_TOKEN2
       }`
     );
 
@@ -114,7 +117,7 @@ export const getNews = (symbol) => async (dispatch) => {
 
   try {
     const { data } = await iex.get(
-      `/${symbol}/news?token=${process.env.REACT_APP_IEX_API_TOKEN}`
+      `/${symbol}/news?token=${process.env.REACT_APP_IEX_API_TOKEN2}`
     );
 
     dispatch({
@@ -306,6 +309,31 @@ export const getOrderList = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: STOCK_ORDER_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getStockChartData = (symbol) => async (dispatch) => {
+  dispatch({
+    type: STOCK_CHART_DATA_REQUEST,
+  });
+
+  try {
+    const { data } = await axios.get(
+      `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=full&apikey=${process.env.REACT_APP_ALPHA_VANTAGE_TOKEN}`
+    );
+
+    dispatch({
+      type: STOCK_CHART_DATA_SUCCESS,
+      payload: data['Time Series (Daily)'],
+    });
+  } catch (error) {
+    dispatch({
+      type: STOCK_CHART_DATA_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

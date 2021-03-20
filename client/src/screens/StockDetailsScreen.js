@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, ListGroup, Card, Button, Table } from 'react-bootstrap';
 import News from '../components/stock/News';
 import Order from '../components/stock/Order';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { getStockDetails } from '../redux/actions/stockActions';
+import {
+  getStockDetails,
+  getStockChartData,
+} from '../redux/actions/stockActions';
+import StockChart from '../components/stock/StockChart';
 
 const StockDetailsScreen = ({ match }) => {
+  const ref = useRef(null);
+  const [width, setWidth] = useState(0);
+
   const symbol = match.params.symbol;
 
   const dispatch = useDispatch();
@@ -15,8 +22,25 @@ const StockDetailsScreen = ({ match }) => {
   const stockDetails = useSelector((state) => state.stockDetails);
   const { loading, error, stock } = stockDetails;
 
+  const stockChartData = useSelector((state) => state.stockChartData);
+  const {
+    loading: loadingChart,
+    error: errorChart,
+    chartData,
+  } = stockChartData;
+
   useEffect(() => {
+    const handleResize = () => {
+      setWidth(ref.current.offsetWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
     dispatch(getStockDetails(symbol));
+    dispatch(getStockChartData(symbol));
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, [dispatch, symbol]);
 
   return (
@@ -44,7 +68,15 @@ const StockDetailsScreen = ({ match }) => {
                 </ListGroup.Item>
               </ListGroup>
             </Col>
-            <Col md={6}>CHART TO BE ADDED</Col>
+            <Col md={6} ref={ref}>
+              {loadingChart ? (
+                <Loader />
+              ) : error ? (
+                <Message variant="danger">Error loading chart</Message>
+              ) : (
+                chartData && <StockChart chartData={chartData} width={width} />
+              )}
+            </Col>
             <Col md={3}>
               <Order symbol={symbol.toUpperCase()} price={stock.latestPrice} />
             </Col>
