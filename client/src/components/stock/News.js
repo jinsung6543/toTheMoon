@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { ListGroup, Row, Col, Image } from 'react-bootstrap';
+import { Card, CardColumns, Col } from 'react-bootstrap';
 import moment from 'moment';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
@@ -19,34 +19,40 @@ const News = ({ symbol }) => {
 
   return (
     <>
+      <i class="fas fa-newspaper"></i>
+      <h2 className="inline"> News</h2>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
-      ) : (
-        <ListGroup>
+      ) : news.length > 0 ? (
+        <CardColumns>
           {news.map((n) => (
-            <Row key={n.url}>
-              <Col md={3}>
-                <Image src={n.image} alt={n.headline} fluid />
-              </Col>
-              <Col>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
+            <a
+              key={n.url}
+              href={n.url}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <Card>
+                <Card.Img variant="top" src={n.image} />
+                <Card.Body>
+                  <Card.Title>{n.headline}</Card.Title>
+                  <Card.Text>{n.summary}</Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                  <small className="text-muted">
                     {moment(n.datetime).format('YYYY-MM-DD')}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <a href={n.url} target="_blank" rel="noreferrer noopener">
-                      <h4>{n.headline}</h4>
-                    </a>
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>{n.summary}</ListGroup.Item>
-                </ListGroup>
-              </Col>
-            </Row>
+                  </small>
+                </Card.Footer>
+              </Card>
+            </a>
           ))}
-        </ListGroup>
+        </CardColumns>
+      ) : (
+        <div>
+          <h4>No news to display</h4>
+        </div>
       )}
     </>
   );

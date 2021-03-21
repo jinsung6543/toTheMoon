@@ -1,4 +1,4 @@
-export const formatNumberRounded = (num) => {
+export const formatLargeDollar = (num) => {
   if (num > 1000000000000) {
     return (num / 10000000000).toFixed(2) + 'T';
   }

@@ -4,23 +4,35 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Table } from 'react-bootstrap';
 import Message from '../Message';
 import Loader from '../Loader';
-import { getGainers, getLosers } from '../../redux/actions/stockActions';
+import {
+  getGainers,
+  getLosers,
+  getMostActive,
+} from '../../redux/actions/stockActions';
 
 const Movers = ({ type }) => {
   const dispatch = useDispatch();
 
   const stockMovers = useSelector((state) =>
-    type === 'gainers' ? state.stockGainers : state.stockLosers
+    type === 'most active'
+      ? state.stockMostActive
+      : type === 'gainers'
+      ? state.stockGainers
+      : state.stockLosers
   );
   const { loading, error, stocks } = stockMovers;
 
   useEffect(() => {
-    type === 'gainers' ? dispatch(getGainers()) : dispatch(getLosers());
+    type === 'most active'
+      ? dispatch(getMostActive())
+      : type === 'gainers'
+      ? dispatch(getGainers())
+      : dispatch(getLosers());
   }, [dispatch, type]);
 
   return (
     <>
-      {type === 'gainers' ? <h3>Gainers</h3> : <h3>Losers</h3>}
+      <h3>{type}</h3>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -42,11 +54,15 @@ const Movers = ({ type }) => {
                   <td>
                     <Link to={`/quote/${stock.symbol}`}>{stock.symbol}</Link>
                   </td>
-                  <td>{stock.companyName}</td>
+                  <td>
+                    <Link to={`/quote/${stock.symbol}`}>
+                      {stock.companyName}
+                    </Link>
+                  </td>
                   <td className={stock.change > 0 ? 'green' : 'red'}>
                     {(stock.changePercent * 100).toFixed(2)}%
                   </td>
-                  <td>${stock.latestPrice}</td>
+                  <td>${stock.latestPrice.toFixed(2)}</td>
                 </tr>
               ))}
           </tbody>

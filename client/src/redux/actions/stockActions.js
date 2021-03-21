@@ -19,6 +19,9 @@ import {
   STOCK_LOSERS_FAIL,
   STOCK_LOSERS_REQUEST,
   STOCK_LOSERS_SUCCESS,
+  STOCK_MOST_ACTIVE_FAIL,
+  STOCK_MOST_ACTIVE_REQUEST,
+  STOCK_MOST_ACTIVE_SUCCESS,
   STOCK_NEWS_FAIL,
   STOCK_NEWS_REQUEST,
   STOCK_NEWS_SUCCESS,
@@ -32,6 +35,31 @@ import {
   STOCK_SELL_REQUEST,
   STOCK_SELL_SUCCESS,
 } from '../constants/stockConstants';
+
+export const getMostActive = () => async (dispatch) => {
+  dispatch({
+    type: STOCK_MOST_ACTIVE_REQUEST,
+  });
+
+  try {
+    const { data } = await iex.get(
+      `/market/list/mostactive?token=${process.env.REACT_APP_IEX_API_TOKEN2}`
+    );
+
+    dispatch({
+      type: STOCK_MOST_ACTIVE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: STOCK_MOST_ACTIVE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 export const getGainers = () => async (dispatch) => {
   dispatch({
@@ -190,7 +218,7 @@ export const buyStock = (stock) => async (dispatch, getState) => {
 
     const { data } = await axios.post(
       `/api/stocks/buy`,
-      { symbol, price, quantity },
+      { symbol, price: price.toFixed(2), quantity },
       config
     );
 
@@ -210,7 +238,7 @@ export const buyStock = (stock) => async (dispatch, getState) => {
 };
 
 export const sellStock = (stock) => async (dispatch, getState) => {
-  const { symbol, price, quantity } = stock;
+  const { symbol, price, quantity, profitOrLoss } = stock;
 
   dispatch({
     type: STOCK_SELL_REQUEST,
@@ -230,7 +258,7 @@ export const sellStock = (stock) => async (dispatch, getState) => {
 
     const { data } = await axios.post(
       `/api/stocks/sell`,
-      { symbol, price, quantity },
+      { symbol, price: price.toFixed(2), quantity, profitOrLoss },
       config
     );
 

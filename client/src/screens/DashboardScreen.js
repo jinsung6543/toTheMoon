@@ -81,6 +81,7 @@ const DashboardScreen = () => {
                 <th>Quantity</th>
                 <th>Mkt value</th>
                 <th>Change</th>
+                <th>Change %</th>
               </tr>
             </thead>
             <tbody>

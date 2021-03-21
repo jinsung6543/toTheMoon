@@ -23,6 +23,10 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    profitOrLoss: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,

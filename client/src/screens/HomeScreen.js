@@ -11,8 +11,9 @@ const HomeScreen = () => {
       </div>
       <div>
         <h2>Top Movers</h2>
-        <Movers type="gainers" />
-        <Movers type="losers" />
+        <Movers type="most active" />
+        {/* <Movers type="gainers" />
+        <Movers type="losers" /> */}
       </div>
     </div>
   );

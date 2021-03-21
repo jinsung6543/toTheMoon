@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Button, Row, Col, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
@@ -123,17 +124,31 @@ const ProfileScreen = ({ history }) => {
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Action</th>
+                <th>Profit/Loss</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((order) => (
                 <tr key={order._id}>
-                  <td>{order.symbol}</td>
-                  <td>{order.price}</td>
-                  <td>{order.quantity}</td>
+                  <td>
+                    <Link to={`/quote/${order.symbol}`}>{order.symbol}</Link>
+                  </td>
+                  <td>${order.price.toFixed(2).toLocaleString()}</td>
+                  <td>{order.quantity.toLocaleString()}</td>
                   <td className={order.buyOrSell === 'buy' ? 'green' : 'red'}>
                     {order.buyOrSell.toUpperCase()}
                   </td>
+                  {order.buyOrSell === 'buy' ? (
+                    <td> - </td>
+                  ) : (
+                    <td
+                      className={
+                        order.profitOrLoss.toFixed(2) > 0 ? 'green' : 'red'
+                      }
+                    >
+                      ${order.profitOrLoss.toFixed(2).toLocaleString()}
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>

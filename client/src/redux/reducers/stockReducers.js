@@ -1,4 +1,7 @@
 import {
+  STOCK_MOST_ACTIVE_REQUEST,
+  STOCK_MOST_ACTIVE_SUCCESS,
+  STOCK_MOST_ACTIVE_FAIL,
   STOCK_GAINERS_FAIL,
   STOCK_GAINERS_REQUEST,
   STOCK_GAINERS_SUCCESS,
@@ -30,6 +33,19 @@ import {
   STOCK_CHART_DATA_SUCCESS,
   STOCK_CHART_DATA_FAIL,
 } from '../constants/stockConstants';
+
+export const stockMostActiveReducer = (state = { stocks: [] }, action) => {
+  switch (action.type) {
+    case STOCK_MOST_ACTIVE_REQUEST:
+      return { loading: true };
+    case STOCK_MOST_ACTIVE_SUCCESS:
+      return { loading: false, stocks: action.payload };
+    case STOCK_MOST_ACTIVE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 
 export const stockGainersReducer = (state = { stocks: [] }, action) => {
   switch (action.type) {

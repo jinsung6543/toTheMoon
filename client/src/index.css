@@ -1,21 +1,12 @@
-main {
-  min-height: 80vh;
-}
 
-.green {
-  color: green;
-}
 
-.red {
-  color: red;
-}
-
+/* Chart */
 #chart-container {
 	position: relative;
 }
 
 .floating-tooltip-2 {
-	width: 96px;
+	width: 100px;
 	height: 300px;
 	position: absolute;
 	display: none;
@@ -32,4 +23,145 @@ main {
 	border-radius: 4px 4px 0px 0px;
   border-bottom: none;
   box-shadow: 0 2px 5px 0 rgba(117, 134, 150, 0.45);
+}
+
+/* React bootstrap */
+.navbar {
+	background-color: #202031;
+	padding: 0.5rem 2rem;
+}
+
+.col {
+	margin-bottom: 15px;
+}
+
+.row {
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+
+.card-columns {
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+
+.card {
+	transition: box-shadow .1s;
+	border-radius: 10px;
+}
+
+.card-img-top {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.card-footer {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+} 
+
+.card-footer {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+} 
+
+.btn {
+	border-radius: 5px;
+}
+
+.card:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+
+.alert {
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+
+/* app */
+
+body {
+	background-color: #2B2B43;
+	color: #ebebeb;
+	font-family: 'Montserrat', sans-serif;
+}
+
+h1,h2,h3,h4,h5 {
+	color: #ebebeb
+}
+
+a {
+	color: #ebebeb
+}
+
+a:hover {
+	color: #fff;
+	text-decoration: none;
+}
+
+th, tb, td {
+	color: #ebebeb
+}
+
+.list-group {
+	color: #55596c;
+	border-radius: 10px;
+}
+
+.list-group-item {
+	background-color: #f8f9fa;
+}
+
+.card {
+	color: #55596c
+}
+
+main {
+  min-height: 80vh;
+}
+
+.border-top-radius {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.border-bottom-radius {
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.fas {
+	font-size: 1.5rem;
+}
+
+.searchInput {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.search {
+	height: 45px;
+	border-radius: 0;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.green {
+  color: #4bbf73;
+}
+
+.red {
+  color: #d42a24;
+}
+
+.inline {
+	display: inline;
+}
+
+.orderButtons {
+	margin-bottom: 0;
+}
+
+.transaction-message.alert {
+	margin: 0
 }

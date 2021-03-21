@@ -22,10 +22,10 @@ const Search = ({ history }) => {
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
         placeholder="Search by symbol"
-        className="mr-sm-2 ml-sm-5"
+        className="searchInput"
       ></Form.Control>
-      <Button type="submit" variant="outline-success" className="p-2">
-        Search
+      <Button type="submit" variant="outline-success" className="p-2 search">
+        <i class="fas fa-search"></i>
       </Button>
     </Form>
   );

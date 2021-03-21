@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, ListGroup, Card, Button, Table } from 'react-bootstrap';
+import { Row, Col, ListGroup, Container } from 'react-bootstrap';
 import News from '../components/stock/News';
 import Order from '../components/stock/Order';
 import Loader from '../components/Loader';
@@ -10,9 +10,10 @@ import {
   getStockChartData,
 } from '../redux/actions/stockActions';
 import StockChart from '../components/stock/StockChart';
+import StockDetails from '../components/stock/StockDetails';
 
 const StockDetailsScreen = ({ match }) => {
-  const ref = useRef(null);
+  const refWidth = useRef(null);
   const [width, setWidth] = useState(0);
 
   const symbol = match.params.symbol;
@@ -30,10 +31,10 @@ const StockDetailsScreen = ({ match }) => {
   } = stockChartData;
 
   useEffect(() => {
-    setWidth(ref.current.offsetWidth);
+    setWidth(refWidth.current.offsetWidth - 30);
 
     const handleResize = () => {
-      setWidth(ref.current.offsetWidth);
+      setWidth(refWidth.current.offsetWidth - 30);
     };
 
     window.addEventListener('resize', handleResize);
@@ -54,23 +55,44 @@ const StockDetailsScreen = ({ match }) => {
       ) : (
         <>
           <Row>
-            <Col md={3}>
+            <Col>
               <ListGroup variant="flush">
-                <ListGroup.Item>
+                <ListGroup.Item className="border-top-radius">
                   <h3>{stock.companyName}</h3>
+                  {stock.primaryExchange && stock.primaryExchange}
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <h1>${stock.latestPrice && stock.latestPrice.toFixed(2)}</h1>
+                  <h1 className="inline">
+                    ${stock.latestPrice && stock.latestPrice.toFixed(2)}
+                  </h1>
                   <span className={stock.change > 0 ? 'green' : 'red'}>
-                    ${stock.change}(
+                    {' '}
+                    {stock.change}(
                     {stock.changePercent &&
                       (stock.changePercent * 100).toFixed(2)}
                     %)
                   </span>
+                  {stock.extendedPrice && (
+                    <div>
+                      Extended Hours:{' '}
+                      <span
+                        className={stock.extendedChange > 0 ? 'green' : 'red'}
+                      >
+                        ${stock.extendedPrice}(
+                        {stock.extendedChangePercent &&
+                          (stock.extendedChangePercent * 100).toFixed(2)}
+                        %)
+                      </span>
+                    </div>
+                  )}
                 </ListGroup.Item>
+                <Order
+                  symbol={symbol.toUpperCase()}
+                  price={stock.latestPrice}
+                />
               </ListGroup>
             </Col>
-            <Col md={6} ref={ref}>
+            <Col ref={refWidth} md={8}>
               {loadingChart ? (
                 <Loader />
               ) : error ? (
@@ -85,54 +107,16 @@ const StockDetailsScreen = ({ match }) => {
                 )
               )}
             </Col>
-            <Col md={3}>
-              <Order symbol={symbol.toUpperCase()} price={stock.latestPrice} />
-            </Col>
           </Row>
+
           <Row>
             <Col>
-              <h2>Summary</h2>
-              <Row>
-                <Col>
-                  <Row>
-                    <Col>Previous Close:</Col>
-                    <Col>{stock.previousClose}</Col>
-                  </Row>
-                  <Row>
-                    <Col>Open:</Col>
-                    <Col>{stock.open}</Col>
-                  </Row>
-                  <Row>
-                    <Col>Day's Range:</Col>
-                    <Col>
-                      {stock.low} - {stock.high}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>52 Week Range:</Col>
-                    <Col>
-                      {stock.week52Low} - {stock.week52High}
-                    </Col>
-                  </Row>
-                </Col>
-                <Col>
-                  <Row>
-                    <Col>Volume:</Col>
-                    <Col>{stock.volume}</Col>
-                  </Row>
-                  <Row>
-                    <Col>Market Cap:</Col>
-                    <Col>${stock.marketCap}</Col>
-                  </Row>
-                  <Row>
-                    <Col>peRatio:</Col>
-                    <Col>{stock.peRatio ? stock.peRation : 'N/A'}</Col>
-                  </Row>
-                </Col>
-              </Row>
+              <StockDetails stock={stock} />
             </Col>
+          </Row>
+
+          <Row>
             <Col>
-              <h2>News</h2>
               <News symbol={symbol} />
             </Col>
           </Row>

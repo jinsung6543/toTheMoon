@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {
+  stockMostActiveReducer,
   stockGainersReducer,
   stockLosersReducer,
   stockDetailsReducer,
@@ -21,6 +22,7 @@ import {
 } from './reducers/userReducers';
 
 const reducer = combineReducers({
+  stockMostActive: stockMostActiveReducer,
   stockGainers: stockGainersReducer,
   stockLosers: stockLosersReducer,
   stockDetails: stockDetailsReducer,

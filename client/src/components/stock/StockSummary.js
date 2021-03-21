@@ -21,13 +21,27 @@ const StockSummary = ({ stock }) => {
       <td>
         <Link to={`/quote/${stock.symbol}`}>{stock.symbol}</Link>
       </td>
-      <td>${stock.price.toFixed(2)}</td>
-      <td>${currentPrice}</td>
-      <td>{stock.quantity}</td>
-      <td>${(stock.quantity * stock.price).toFixed(2)}</td>
+      <td>${parseFloat(stock.price.toFixed(2)).toLocaleString()}</td>
+      <td>${currentPrice.toLocaleString()}</td>
+      <td>{stock.quantity.toLocaleString()}</td>
+      <td>
+        $
+        {parseFloat((stock.quantity * stock.price).toFixed(2)).toLocaleString()}
+      </td>
       <td
         className={
-          stock.price === currentPrice
+          stock.price - currentPrice.toFixed(2) < 0.01
+            ? 'black'
+            : stock.price < currentPrice
+            ? 'green'
+            : 'red'
+        }
+      >
+        ${(stock.price - currentPrice).toFixed(2)}
+      </td>
+      <td
+        className={
+          stock.price - currentPrice.toFixed(2) < 0.01
             ? 'black'
             : stock.price < currentPrice
             ? 'green'

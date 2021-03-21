@@ -4,7 +4,7 @@ import { createChart, isBusinessDay } from 'lightweight-charts';
 const StockChart = ({ chartData, width, symbol }) => {
   useEffect(() => {
     let dailyPrice = [];
-    let height = 400;
+    let height = width * 0.6;
 
     for (const prop in chartData) {
       dailyPrice.push({
@@ -87,7 +87,7 @@ const StockChart = ({ chartData, width, symbol }) => {
       ).toLocaleDateString();
     }
 
-    let toolTipWidth = 96;
+    let toolTipWidth = 100;
     let toolTipMargin = 15;
     let priceScaleWidth = 50;
 
@@ -116,7 +116,7 @@ const StockChart = ({ chartData, width, symbol }) => {
       toolTip.innerHTML =
         `<div style="color: rgba(32, 226, 47, 1)">⬤ ${symbol}</div>` +
         '<div style="font-size: 24px; margin: 4px 0px; color: #fff">' +
-        (Math.round(price * 100) / 100).toFixed(2) +
+        `$${(Math.round(price * 100) / 100).toFixed(2)}` +
         '</div>' +
         '<div style="color: #fff">' +
         dateStr +
