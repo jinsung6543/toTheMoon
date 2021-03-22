@@ -47,82 +47,84 @@ const StockDetailsScreen = ({ match }) => {
   }, [dispatch, symbol]);
 
   return (
-    <>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant="danger">Stock not found</Message>
-      ) : (
-        <>
-          <Row>
-            <Col>
-              <ListGroup variant="flush">
-                <ListGroup.Item className="border-top-radius">
-                  <h3>{stock.companyName}</h3>
-                  {stock.primaryExchange && stock.primaryExchange}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <h1 className="inline">
-                    ${stock.latestPrice && stock.latestPrice.toFixed(2)}
-                  </h1>
-                  <span className={stock.change > 0 ? 'green' : 'red'}>
-                    {' '}
-                    {stock.change}(
-                    {stock.changePercent &&
-                      (stock.changePercent * 100).toFixed(2)}
-                    %)
-                  </span>
-                  {stock.extendedPrice && (
-                    <div>
-                      Extended Hours:{' '}
-                      <span
-                        className={stock.extendedChange > 0 ? 'green' : 'red'}
-                      >
-                        ${stock.extendedPrice}(
-                        {stock.extendedChangePercent &&
-                          (stock.extendedChangePercent * 100).toFixed(2)}
-                        %)
-                      </span>
-                    </div>
-                  )}
-                </ListGroup.Item>
-                <Order
-                  symbol={symbol.toUpperCase()}
-                  price={stock.latestPrice}
-                />
-              </ListGroup>
-            </Col>
-            <Col ref={refWidth} md={8}>
-              {loadingChart ? (
-                <Loader />
-              ) : error ? (
-                <Message variant="danger">Error loading chart</Message>
-              ) : (
-                chartData && (
-                  <StockChart
-                    chartData={chartData}
-                    width={width}
-                    symbol={symbol}
+    <div className="stock-details-screen">
+      <Container>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message variant="danger">Stock not found</Message>
+        ) : (
+          <>
+            <Row>
+              <Col>
+                <ListGroup variant="flush">
+                  <ListGroup.Item className="border-top-radius stock-details-title">
+                    <h3>{stock.companyName}</h3>
+                    {stock.primaryExchange && stock.primaryExchange}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <h1 className="inline">
+                      ${stock.latestPrice && stock.latestPrice.toFixed(2)}
+                    </h1>
+                    <span className={stock.change > 0 ? 'green' : 'red'}>
+                      {' '}
+                      {stock.change}(
+                      {stock.changePercent &&
+                        (stock.changePercent * 100).toFixed(2)}
+                      %)
+                    </span>
+                    {stock.extendedPrice && (
+                      <div>
+                        Extended Hours:{' '}
+                        <span
+                          className={stock.extendedChange > 0 ? 'green' : 'red'}
+                        >
+                          ${stock.extendedPrice}(
+                          {stock.extendedChangePercent &&
+                            (stock.extendedChangePercent * 100).toFixed(2)}
+                          %)
+                        </span>
+                      </div>
+                    )}
+                  </ListGroup.Item>
+                  <Order
+                    symbol={symbol.toUpperCase()}
+                    price={stock.latestPrice}
                   />
-                )
-              )}
-            </Col>
-          </Row>
+                </ListGroup>
+              </Col>
+              <Col ref={refWidth} md={8}>
+                {loadingChart ? (
+                  <Loader />
+                ) : error ? (
+                  <Message variant="danger">Error loading chart</Message>
+                ) : (
+                  chartData && (
+                    <StockChart
+                      chartData={chartData}
+                      width={width}
+                      symbol={symbol}
+                    />
+                  )
+                )}
+              </Col>
+            </Row>
 
-          <Row>
-            <Col>
-              <StockDetails stock={stock} />
-            </Col>
-          </Row>
+            <Row>
+              <Col>
+                <StockDetails stock={stock} />
+              </Col>
+            </Row>
 
-          <Row>
-            <Col>
-              <News symbol={symbol} />
-            </Col>
-          </Row>
-        </>
-      )}
-    </>
+            <Row>
+              <Col>
+                <News symbol={symbol} />
+              </Col>
+            </Row>
+          </>
+        )}
+      </Container>
+    </div>
   );
 };
 

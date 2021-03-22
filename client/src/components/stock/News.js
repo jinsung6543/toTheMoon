@@ -20,7 +20,7 @@ const News = ({ symbol }) => {
   return (
     <>
       <i class="fas fa-newspaper"></i>
-      <h2 className="inline"> News</h2>
+      <h2 className="inline stock-details-heading"> News</h2>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -51,7 +51,7 @@ const News = ({ symbol }) => {
         </CardColumns>
       ) : (
         <div>
-          <h4>No news to display</h4>
+          <h4 className="my-4 stock-details-heading">No news to display</h4>
         </div>
       )}
     </>

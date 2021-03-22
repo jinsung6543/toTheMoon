@@ -49,7 +49,7 @@ const StockChart = ({ chartData, width, symbol }) => {
         },
       },
       layout: {
-        backgroundColor: '#2B2B43',
+        backgroundColor: 'rgb(20, 21, 26)',
         lineColor: '#2B2B43',
         textColor: '#D9D9D9',
       },
@@ -67,9 +67,9 @@ const StockChart = ({ chartData, width, symbol }) => {
     });
 
     const areaSeries = chart.addAreaSeries({
-      topColor: 'rgba(32, 226, 47, 0.56)',
-      bottomColor: 'rgba(32, 226, 47, 0.04)',
-      lineColor: 'rgba(32, 226, 47, 1)',
+      topColor: 'rgba(240, 185, 11, 0.56)',
+      bottomColor: 'rgba(240, 185, 11, 0.04)',
+      lineColor: 'rgba(240, 185, 11, 1)',
     });
 
     areaSeries.setData(dailyPrice.reverse());
@@ -114,7 +114,7 @@ const StockChart = ({ chartData, width, symbol }) => {
       toolTip.style.display = 'block';
       let price = param.seriesPrices.get(areaSeries);
       toolTip.innerHTML =
-        `<div style="color: rgba(32, 226, 47, 1)">⬤ ${symbol}</div>` +
+        `<div style="color: rgba(240, 185, 11, 1)">⬤ ${symbol}</div>` +
         '<div style="font-size: 24px; margin: 4px 0px; color: #fff">' +
         `$${(Math.round(price * 100) / 100).toFixed(2)}` +
         '</div>' +

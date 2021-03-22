@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Row,
   Col,
   ListGroup,
   FormControl,
   Button,
-  Card,
   InputGroup,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,7 +18,7 @@ import {
 } from '../../redux/actions/stockActions';
 
 const Order = ({ symbol, price }) => {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState('Enter quantity');
   const [transactionMessage, setTransactionMessage] = useState(null);
 
   const dispatch = useDispatch();
@@ -47,28 +47,33 @@ const Order = ({ symbol, price }) => {
   }, [dispatch, userInfo, symbol, successBuy, successSell]);
 
   const buyHandler = (e) => {
-    dispatch(buyStock({ symbol, price, quantity }));
-    setQuantity(0);
-    quantity <= 0
-      ? renderTransactionMessage('You must enter quantity')
-      : user.cash < price * quantity
-      ? renderTransactionMessage('You have insufficient cash')
-      : renderTransactionMessage(
-          `Order filled. Buy ${quantity} @ $${price.toFixed(2)}`
-        );
+    if (isNaN(quantity) || quantity <= 0) {
+      renderTransactionMessage('You must enter valid quantity');
+    } else if (user.cash < price * quantity) {
+      renderTransactionMessage('You have insufficient cash');
+    } else {
+      renderTransactionMessage(
+        `Order filled. Buy ${quantity} @ $${price.toFixed(2)}`
+      );
+      dispatch(buyStock({ symbol, price, quantity }));
+    }
+    setQuantity('Enter quantity');
   };
 
   const sellHandler = (e) => {
     const profitOrLoss = stock.price - price;
-    dispatch(sellStock({ symbol, price, quantity, profitOrLoss }));
-    setQuantity(0);
-    quantity <= 0
-      ? renderTransactionMessage('You must enter quantity')
-      : stock.quantity < quantity
-      ? renderTransactionMessage('You have insufficient stocks to sell')
-      : renderTransactionMessage(
-          `Order filled. Sell ${quantity} @ $${price.toFixed(2)}`
-        );
+    if (isNaN(quantity) || quantity <= 0) {
+      renderTransactionMessage('You must enter valid quantity');
+    } else if (stock.quantity < quantity) {
+      renderTransactionMessage('You have insufficient stocks to sell');
+    } else {
+      renderTransactionMessage(
+        `Order filled. Sell ${quantity} @ $${price.toFixed(2)}`
+      );
+      dispatch(sellStock({ symbol, price, quantity, profitOrLoss }));
+    }
+
+    setQuantity('Enter quantity');
   };
 
   const renderTransactionMessage = (message) => {
@@ -78,73 +83,84 @@ const Order = ({ symbol, price }) => {
 
   return (
     <>
-      <ListGroup.Item>
-        Cash: $
-        {user && user.cash && parseFloat(user.cash.toFixed(2)).toLocaleString()}
-      </ListGroup.Item>
+      {userInfo ? (
+        <>
+          <ListGroup.Item>
+            Cash: $
+            {user &&
+              user.cash &&
+              parseFloat(user.cash.toFixed(2)).toLocaleString()}
+          </ListGroup.Item>
 
-      <ListGroup.Item>
-        Owned:{' '}
-        {stock &&
-          (stock.message ? (
-            0
-          ) : (
-            <span>
-              {stock.quantity && stock.quantity.toLocaleString()} @ $
-              {stock.price &&
-                parseFloat(stock.price.toFixed(2)).toLocaleString()}
-            </span>
-          ))}
-      </ListGroup.Item>
+          <ListGroup.Item>
+            Owned:{' '}
+            {stock &&
+              (stock.message ? (
+                0
+              ) : (
+                <span>
+                  {stock.quantity && stock.quantity.toLocaleString()} @ $
+                  {stock.price &&
+                    parseFloat(stock.price.toFixed(2)).toLocaleString()}
+                </span>
+              ))}
+          </ListGroup.Item>
 
-      <InputGroup>
-        <InputGroup.Prepend>
-          <InputGroup.Text>Quantity</InputGroup.Text>
-        </InputGroup.Prepend>
-        <FormControl
-          type="number"
-          placeholder="Enter quantity"
-          value={quantity.toString()}
-          required
-          onChange={(e) => {
-            setQuantity(
-              e.target.value ? parseInt(e.target.value) : e.target.value
-            );
-          }}
-        ></FormControl>
-      </InputGroup>
+          <InputGroup>
+            <InputGroup.Prepend>
+              <InputGroup.Text>Quantity</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              type="number"
+              placeholder="Enter quantity"
+              value={quantity.toString()}
+              required
+              onChange={(e) => {
+                setQuantity(
+                  e.target.value ? parseInt(e.target.value) : e.target.value
+                );
+              }}
+            ></FormControl>
+          </InputGroup>
 
-      <ListGroup.Item className="border-bottom-radius">
-        <Row className="orderButtons">
-          <Col className="orderButtons">
-            <Button
-              className="btn-block"
-              variant="success"
-              type="submit"
-              onClick={buyHandler}
-            >
-              Buy
-            </Button>
-          </Col>
-          <Col className="orderButtons">
-            <Button
-              className="btn-block"
-              variant="danger"
-              type="submit"
-              onClick={sellHandler}
-            >
-              Sell
-            </Button>
-          </Col>
-        </Row>
-        {transactionMessage ? (
-          <Message className="transaction-message">
-            {transactionMessage}
-          </Message>
-        ) : (
-          ''
-        )}
-      </ListGroup.Item>
+          <ListGroup.Item className="border-bottom-radius">
+            <Row className="orderButtons">
+              <Col className="orderButtons">
+                <Button
+                  className="btn-block"
+                  variant="success"
+                  type="submit"
+                  onClick={buyHandler}
+                >
+                  Buy
+                </Button>
+              </Col>
+              <Col className="orderButtons">
+                <Button
+                  className="btn-block"
+                  variant="danger"
+                  type="submit"
+                  onClick={sellHandler}
+                >
+                  Sell
+                </Button>
+              </Col>
+            </Row>
+            {transactionMessage ? (
+              <Message className="transaction-message">
+                {transactionMessage}
+              </Message>
+            ) : (
+              ''
+            )}
+          </ListGroup.Item>
+        </>
+      ) : (
+        <ListGroup.Item className="border-bottom-radius">
+          <Link to="/login">Log in</Link> or{' '}
+          <Link to="/register">register</Link> to trade
+        </ListGroup.Item>
+      )}
     </>
   );
 };

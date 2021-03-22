@@ -16,15 +16,13 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
-        <main className="py-3">
-          <Container>
-            <Route path="/login" component={LoginScreen} />
-            <Route path="/profile" component={ProfileScreen} />
-            <Route path="/dashboard" component={DashboardScreen} />
-            <Route path="/register" component={RegisterScreen} />
-            <Route path="/quote/:symbol" component={StockDetailsScreen} />
-            <Route path="/" component={HomeScreen} exact />
-          </Container>
+        <main>
+          <Route path="/login" component={LoginScreen} />
+          <Route path="/profile" component={ProfileScreen} />
+          <Route path="/dashboard" component={DashboardScreen} />
+          <Route path="/register" component={RegisterScreen} />
+          <Route path="/quote/:symbol" component={StockDetailsScreen} />
+          <Route path="/" component={HomeScreen} exact />
         </main>
       </BrowserRouter>
       <Footer />

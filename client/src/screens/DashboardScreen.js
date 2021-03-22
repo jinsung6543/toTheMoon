@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -26,15 +26,18 @@ const DashboardScreen = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <h1>Dashboard</h1>
+    <Container>
+      <div>
+        <i class="fas fa-chart-bar"></i>
+        <h1 className="inline"> Dashboard</h1>
+      </div>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
         <>
-          <Table striped bordered hover responsive className="table-sm">
+          <Table bordered hover responsive className="table-sm">
             <thead>
               <tr>
                 <th>Total equity</th>
@@ -72,7 +75,7 @@ const DashboardScreen = () => {
               </tr>
             </tbody>
           </Table>
-          <Table striped bordered hover responsive className="table-sm">
+          <Table hover responsive className="table-sm">
             <thead>
               <tr>
                 <th>Symbol</th>
@@ -92,7 +95,7 @@ const DashboardScreen = () => {
           </Table>
         </>
       )}
-    </>
+    </Container>
   );
 };
 

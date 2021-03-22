@@ -8,8 +8,6 @@ const Search = ({ history }) => {
     e.preventDefault();
     if (keyword.trim()) {
       history.push(`/quote/${keyword.toUpperCase()}`);
-    } else {
-      history.push('/');
     }
     setKeyword('');
   };
@@ -24,7 +22,7 @@ const Search = ({ history }) => {
         placeholder="Search by symbol"
         className="searchInput"
       ></Form.Control>
-      <Button type="submit" variant="outline-success" className="p-2 search">
+      <Button type="submit" className="p-2 search" variant="success">
         <i class="fas fa-search"></i>
       </Button>
     </Form>

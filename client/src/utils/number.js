@@ -11,3 +11,11 @@ export const formatLargeDollar = (num) => {
     return (num / 1000000).toFixed(2) + 'M';
   }
 };
+
+export const formatDollar = (num) => {
+  if (num <= 0.004) {
+    return '$' + Math.abs(num).toFixed(2).toLocaleString(2);
+  } else {
+    return '-$' + Math.abs(num).toFixed(2).toLocaleString(2);
+  }
+};

@@ -26,8 +26,13 @@
 }
 
 /* React bootstrap */
+.container {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+
 .navbar {
-	background-color: #202031;
+	background-color: rgb(18, 22, 28);
 	padding: 0.5rem 2rem;
 }
 
@@ -36,8 +41,16 @@
 }
 
 .row {
-	margin-top: 10px;
-	margin-bottom: 15px;
+	/* margin-bottom: 15px; */
+}
+
+.table-responsive {
+	margin-top: 1.5rem;
+	margin-bottom: 5rem;
+}
+
+.nav-tabs .nav-item {
+	margin-right: 0;
 }
 
 .card-columns {
@@ -78,38 +91,106 @@
 	margin-bottom: 0;
 }
 
+.form-control {
+	background-color: #ecf0f1;
+}
+
+/* carousel */
+.carousel {
+	position: absolute;
+	height: 105px;
+	width: 100%;
+	bottom: 0;
+}
+.carousel-caption {
+  position: absolute;
+  top: 0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.carousel-caption h2 {
+	color: #F0B90B
+}
+ 
+.carousel-caption h4 {
+  color: #fff;
+}
+
+.carousel-inner {
+	height: 120px;
+}
+
 /* app */
 
+html {
+	position: relative;
+	min-height: 100vh;
+}
+
 body {
-	background-color: #2B2B43;
-	color: #ebebeb;
-	font-family: 'Montserrat', sans-serif;
+	margin: 0 0 53px;
+	/* background-color: rgb(20, 21, 26); */
+	/* color: #ebebeb; */
+	/* height: 100vh; */
 }
 
-h1,h2,h3,h4,h5 {
-	color: #ebebeb
+.profile {
+	margin-top: 1.5rem;
 }
 
-a {
-	color: #ebebeb
+footer {
+	background-color: rgb(20, 21, 26);
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	overflow: hidden;
+}
+
+footer .col {
+	margin-bottom: 0;
+}
+
+footer .row {
+	height: 100%;
+}
+
+
+h1,h2,h3,h4,h5,h6 {
+	text-transform: none;
+	/* color: #ebebeb */
+}
+
+.title > h1, .title > h2, .title > h3,.title > h4,.title > h5,.title > h6 {
+	text-align: center;
+	color: #fff;
+}
+
+.title {
+	position: relative;
+	height: 25vh;
+	padding-top: 2%;
+	background-color: #0B0E11;
+}
+
+.register-button {
+	margin: 2rem auto;
+	width: 180px;
+	display: block;
+	background-color: #F0B90B;
+}
+
+.register-button:hover {
+	background-color: #eec53f;
 }
 
 a:hover {
-	color: #fff;
 	text-decoration: none;
-}
-
-th, tb, td {
-	color: #ebebeb
 }
 
 .list-group {
 	color: #55596c;
 	border-radius: 10px;
-}
-
-.list-group-item {
-	background-color: #f8f9fa;
 }
 
 .card {
@@ -131,7 +212,8 @@ main {
 }
 
 .fas {
-	font-size: 1.5rem;
+	font-size: 1.8rem;
+	color: #F0B90B;
 }
 
 .searchInput {
@@ -139,19 +221,32 @@ main {
 	border-bottom-left-radius: 5px;
 }
 
+.movers {
+	margin-top: 1.5rem;
+}
+
+.movers .table-responsive{
+	margin-top: 0;
+}
+
 .search {
 	height: 45px;
 	border-radius: 0;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
+	background-color: #ecf0f1;
+}
+
+.search:hover {
+	background-color: #e2e5e5;
 }
 
 .green {
-  color: #4bbf73;
+  color: #0ECB81;
 }
 
 .red {
-  color: #d42a24;
+  color: #F6465D;
 }
 
 .inline {
@@ -165,3 +260,24 @@ main {
 .transaction-message.alert {
 	margin: 0
 }
+
+/* stock details screen */
+.stock-details-screen {
+	background-color: rgb(20, 21, 26);
+	padding-top: 10px;
+	color: #ebebeb;
+}
+
+.stock-details-heading {
+	color: #ebebeb;
+}
+
+.stock-details-title {
+	background-color: #F0B90B;
+	color: #fff;
+	text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
+}
+
+/* .list-group-item {
+	background-color: #ecf0f1;
+} */

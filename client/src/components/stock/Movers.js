@@ -32,17 +32,17 @@ const Movers = ({ type }) => {
 
   return (
     <>
-      <h3>{type}</h3>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Table striped bordered hover responsive className="table-sm">
+        <Table hover responsive className="table-sm">
           <thead>
             <tr>
               <th>Symbol</th>
               <th>Name</th>
+              <th>Volume</th>
               <th>% Change</th>
               <th>Price</th>
             </tr>
@@ -59,6 +59,7 @@ const Movers = ({ type }) => {
                       {stock.companyName}
                     </Link>
                   </td>
+                  <td>{stock.volume.toLocaleString()}</td>
                   <td className={stock.change > 0 ? 'green' : 'red'}>
                     {(stock.changePercent * 100).toFixed(2)}%
                   </td>

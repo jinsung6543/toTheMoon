@@ -6,7 +6,7 @@ const StockDetails = ({ stock }) => {
   return (
     <>
       <i class="fas fa-file-alt"></i>
-      <h2 className="inline"> Details</h2>
+      <h2 className="inline stock-details-heading"> Details</h2>
       <Row>
         <Col>
           <Row>

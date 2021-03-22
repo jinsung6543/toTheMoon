@@ -18,11 +18,12 @@ const Header = () => {
 
   return (
     <Navbar variant="dark" expand="lg" collapseOnSelect sticky="top">
+      {/* <Container> */}
       <LinkContainer to="/">
         <Navbar.Brand>
           <img
             src={process.env.PUBLIC_URL + '/images/logo.png'}
-            height="50px"
+            height="30px"
             className="d-inline-block align-top"
             alt="React Bootstrap logo"
           />
@@ -55,6 +56,7 @@ const Header = () => {
           )}
         </Nav>
       </Navbar.Collapse>
+      {/* </Container> */}
     </Navbar>
   );
 };
