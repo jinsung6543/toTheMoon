@@ -25,8 +25,10 @@ const HomeScreen = () => {
           backgroundSize: 'cover',
         }}
       >
-        <h1>Buy &amp; sell stocks in minutes</h1>
-        <h5>toTheMoon is the easiet place to buy and sell stocks.</h5>
+        <div className="greeting">
+          <h1>Buy &amp; sell stocks in minutes</h1>
+          <h5>toTheMoon is the easiet place to buy and sell stocks.</h5>
+        </div>
         {!userInfo && (
           <LinkContainer to="/register">
             <Button type="submit" className="register-button">
@@ -38,7 +40,7 @@ const HomeScreen = () => {
       </div>
       <Container>
         <div>
-          <i class="fas fa-chart-line"></i>
+          <i className="fas fa-chart-line"></i>
           <h2 className="inline"> Top Movers</h2>
         </div>
         <div className="movers">

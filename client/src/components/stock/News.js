@@ -19,7 +19,7 @@ const News = ({ symbol }) => {
 
   return (
     <>
-      <i class="fas fa-newspaper"></i>
+      <i className="fas fa-newspaper"></i>
       <h2 className="inline stock-details-heading"> News</h2>
       {loading ? (
         <Loader />

@@ -62,7 +62,7 @@ const ProfileScreen = ({ history }) => {
       <Row>
         <Col md={3}>
           <div>
-            <i class="fas fa-address-card"></i>
+            <i className="fas fa-address-card"></i>
             <h2 className="inline"> User Profile</h2>
           </div>
           {message && <Message variant="danger">{message}</Message>}
@@ -117,7 +117,7 @@ const ProfileScreen = ({ history }) => {
         </Col>
         <Col md={9}>
           <div>
-            <i class="fas fa-money-bill-wave"></i>
+            <i className="fas fa-money-bill-wave"></i>
             <h2 className="inline"> My Orders</h2>
           </div>
           {loadingOrders ? (
@@ -141,7 +141,7 @@ const ProfileScreen = ({ history }) => {
                     <td>
                       <Link to={`/quote/${order.symbol}`}>{order.symbol}</Link>
                     </td>
-                    <td>${order.price.toFixed(2).toLocaleString()}</td>
+                    <td>${order.price.toLocaleString()}</td>
                     <td>{order.quantity.toLocaleString()}</td>
                     <td className={order.buyOrSell === 'buy' ? 'green' : 'red'}>
                       {order.buyOrSell.toUpperCase()}

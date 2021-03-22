@@ -28,7 +28,7 @@ const DashboardScreen = () => {
   return (
     <Container>
       <div>
-        <i class="fas fa-chart-bar"></i>
+        <i className="fas fa-chart-bar"></i>
         <h1 className="inline"> Dashboard</h1>
       </div>
       {loading ? (

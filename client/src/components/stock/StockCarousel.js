@@ -24,7 +24,7 @@ const StockCarousel = () => {
     <Carousel pause="hover">
       {stocks.map((stock) => (
         <Carousel.Item key={stock.symbol}>
-          <Link to={`/stock/${stock.symbol}`}>
+          <Link to={`/quote/${stock.symbol}`}>
             <Carousel.Caption className="carousel-caption">
               <div>
                 <h2 className="inline">{stock.symbol}</h2>

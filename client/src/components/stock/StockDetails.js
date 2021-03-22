@@ -5,7 +5,7 @@ import { formatLargeDollar } from '../../utils/number';
 const StockDetails = ({ stock }) => {
   return (
     <>
-      <i class="fas fa-file-alt"></i>
+      <i className="fas fa-file-alt"></i>
       <h2 className="inline stock-details-heading"> Details</h2>
       <Row>
         <Col>
@@ -17,15 +17,15 @@ const StockDetails = ({ stock }) => {
           </Row>
           <Row>
             <Col>Open:</Col>
-            <Col>${stock.open && stock.open.toLocaleString()}</Col>
+            <Col>{stock.open ? '$' + stock.open.toLocaleString() : 'N/A'}</Col>
           </Row>
           <Row>
             <Col>Day Low:</Col>
-            <Col>${stock.low && stock.low.toLocaleString()}</Col>
+            <Col>{stock.low ? '$' + stock.low.toLocaleString() : 'N/A'}</Col>
           </Row>
           <Row>
             <Col>Day High:</Col>
-            <Col>${stock.high && stock.high.toLocaleString()}</Col>
+            <Col>{stock.high ? '$' + stock.high.toLocaleString() : 'N/A'}</Col>
           </Row>
         </Col>
         <Col>
@@ -40,7 +40,9 @@ const StockDetails = ({ stock }) => {
           <Row>
             <Col>Volume:</Col>
             <Col>
-              {stock.volume && stock.volume && stock.volume.toLocaleString()}
+              {stock.volume
+                ? stock.volume && stock.volume.toLocaleString()
+                : 'N/A'}
             </Col>
           </Row>
           <Row>

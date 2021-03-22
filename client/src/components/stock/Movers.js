@@ -59,7 +59,9 @@ const Movers = ({ type }) => {
                       {stock.companyName}
                     </Link>
                   </td>
-                  <td>{stock.volume.toLocaleString()}</td>
+                  <td>
+                    {stock.volume ? stock.volume.toLocaleString() : 'N/A'}
+                  </td>
                   <td className={stock.change > 0 ? 'green' : 'red'}>
                     {(stock.changePercent * 100).toFixed(2)}%
                   </td>

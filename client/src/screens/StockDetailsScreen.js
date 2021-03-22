@@ -93,7 +93,7 @@ const StockDetailsScreen = ({ match }) => {
                   />
                 </ListGroup>
               </Col>
-              <Col ref={refWidth} md={8}>
+              <Col ref={refWidth} lg={8} md={12}>
                 {loadingChart ? (
                   <Loader />
                 ) : error ? (

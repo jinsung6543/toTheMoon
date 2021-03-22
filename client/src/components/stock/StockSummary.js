@@ -22,10 +22,10 @@ const StockSummary = ({ stock }) => {
       <td>
         <Link to={`/quote/${stock.symbol}`}>{stock.symbol}</Link>
       </td>
-      <td>${stock.price.toFixed(2).toLocaleString()}</td>
-      <td>${currentPrice.toFixed(2).toLocaleString()}</td>
+      <td>${stock.price.toLocaleString()}</td>
+      <td>${currentPrice.toLocaleString()}</td>
       <td>{stock.quantity.toLocaleString()}</td>
-      <td>${(stock.quantity * stock.price).toFixed(2).toLocaleString()}</td>
+      <td>${(stock.quantity * stock.price).toLocaleString()}</td>
       <td
         className={
           stock.price - currentPrice <= 0.004
