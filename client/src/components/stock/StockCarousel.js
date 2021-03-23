@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../Loader';
 import Message from '../Message';
 import { getMostActive } from '../../redux/actions/stockActions';
+import { formatDollar } from '../../utils/number';
 
 const StockCarousel = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const StockCarousel = () => {
       {stocks.map((stock) => (
         <Carousel.Item key={stock.symbol}>
           <Link to={`/quote/${stock.symbol}`}>
-            <Carousel.Caption className="carousel-caption">
+            <Carousel.Caption>
               <div>
                 <h2 className="inline">{stock.symbol}</h2>
                 <span> ({stock.companyName}) </span>
@@ -34,7 +35,7 @@ const StockCarousel = () => {
                   {(stock.changePercent * 100).toFixed(2)}%
                 </span>
               </div>
-              <h4>${stock.latestPrice.toFixed(2)}</h4>
+              <h4>{formatDollar(stock.latestPrice)}</h4>
             </Carousel.Caption>
           </Link>
         </Carousel.Item>

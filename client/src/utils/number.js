@@ -13,9 +13,24 @@ export const formatLargeDollar = (num) => {
 };
 
 export const formatDollar = (num) => {
-  if (num <= 0.004) {
-    return '$' + Math.abs(num).toFixed(2).toLocaleString(2);
+  const numToFormat = parseFloat(num);
+  if (Math.abs(numToFormat) - 0 < 0.005) {
+    return '$0.00';
+  }
+
+  if (numToFormat > 0) {
+    return (
+      '$' +
+      Math.abs(numToFormat)
+        .toFixed(2)
+        .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    );
   } else {
-    return '-$' + Math.abs(num).toFixed(2).toLocaleString(2);
+    return (
+      '-$' +
+      Math.abs(numToFormat)
+        .toFixed(2)
+        .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    );
   }
 };

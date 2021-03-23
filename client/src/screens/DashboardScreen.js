@@ -7,6 +7,7 @@ import Loader from '../components/Loader';
 import { getPortfolio } from '../redux/actions/stockActions';
 import { getUserProfile } from '../redux/actions/userActions';
 import StockSummary from '../components/stock/StockSummary';
+import { formatDollar } from '../utils/number';
 
 const DashboardScreen = () => {
   const dispatch = useDispatch();
@@ -48,29 +49,22 @@ const DashboardScreen = () => {
             <tbody>
               <tr>
                 <td>
-                  $
                   {user.cash &&
-                    parseFloat(
-                      (
-                        portfolio.reduce(
-                          (acc, cur) => acc + cur.price * cur.quantity,
-                          0
-                        ) + user.cash
-                      ).toFixed(2)
-                    ).toLocaleString()}
+                    formatDollar(
+                      portfolio.reduce(
+                        (acc, cur) => acc + cur.price * cur.quantity,
+                        0
+                      ) + user.cash
+                    )}
                 </td>
+                <td>{user.cash && formatDollar(user.cash)}</td>
                 <td>
-                  $
-                  {user.cash &&
-                    parseFloat(user.cash.toFixed(2)).toLocaleString()}
-                </td>
-                <td>
-                  $
-                  {parseFloat(
-                    portfolio
-                      .reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
-                      .toFixed(2)
-                  ).toLocaleString()}
+                  {formatDollar(
+                    portfolio.reduce(
+                      (acc, cur) => acc + cur.price * cur.quantity,
+                      0
+                    )
+                  )}
                 </td>
               </tr>
             </tbody>

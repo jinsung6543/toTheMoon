@@ -238,7 +238,7 @@ export const buyStock = (stock) => async (dispatch, getState) => {
 };
 
 export const sellStock = (stock) => async (dispatch, getState) => {
-  const { symbol, price, quantity, profitOrLoss } = stock;
+  const { symbol, price, closedPrice, quantity } = stock;
 
   dispatch({
     type: STOCK_SELL_REQUEST,
@@ -258,7 +258,12 @@ export const sellStock = (stock) => async (dispatch, getState) => {
 
     const { data } = await axios.post(
       `/api/stocks/sell`,
-      { symbol, price: price.toFixed(2), quantity, profitOrLoss },
+      {
+        symbol,
+        price: price.toFixed(2),
+        closedPrice: closedPrice.toFixed(2),
+        quantity,
+      },
       config
     );
 

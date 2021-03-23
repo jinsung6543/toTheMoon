@@ -42,7 +42,6 @@ export const buyStock = asyncHandler(async (req, res) => {
       price,
       quantity,
       buyOrSell: 'buy',
-      profitOrLoss: 0,
     });
 
     user.cash -= price * quantity;
@@ -59,7 +58,7 @@ export const buyStock = asyncHandler(async (req, res) => {
 // @route POST /api/stocks/sell
 // @access Private
 export const sellStock = asyncHandler(async (req, res) => {
-  const { symbol, price, quantity, profitOrLoss } = req.body;
+  const { symbol, price, closedPrice, quantity } = req.body;
   const user = await User.findById(req.user._id);
 
   let totalQuantity, existingStock;
@@ -87,9 +86,9 @@ export const sellStock = asyncHandler(async (req, res) => {
         user: req.user._id,
         symbol,
         price,
+        closedPrice,
         quantity,
         buyOrSell: 'sell',
-        profitOrLoss,
       });
 
       user.cash += price * quantity;

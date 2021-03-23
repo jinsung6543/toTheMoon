@@ -129,7 +129,8 @@ const ProfileScreen = ({ history }) => {
               <thead>
                 <tr>
                   <th>Symbol</th>
-                  <th>Price</th>
+                  <th>Avg Price</th>
+                  <th>Closed Price</th>
                   <th>Quantity</th>
                   <th>Action</th>
                   <th>Profit/Loss</th>
@@ -141,24 +142,34 @@ const ProfileScreen = ({ history }) => {
                     <td>
                       <Link to={`/quote/${order.symbol}`}>{order.symbol}</Link>
                     </td>
-                    <td>${order.price.toLocaleString()}</td>
-                    <td>{order.quantity.toLocaleString()}</td>
+                    <td>
+                      {order.price && formatDollar(parseFloat(order.price))}
+                    </td>
+                    <td>
+                      {order.closedPrice
+                        ? formatDollar(parseFloat(order.closedPrice))
+                        : 'N/A'}
+                    </td>
+                    <td>{order.quantity && order.quantity.toLocaleString()}</td>
                     <td className={order.buyOrSell === 'buy' ? 'green' : 'red'}>
                       {order.buyOrSell.toUpperCase()}
                     </td>
                     {order.buyOrSell === 'buy' ? (
-                      <td> - </td>
+                      <td>N/A</td>
                     ) : (
                       <td
                         className={
-                          order.profitOrLoss.toFixed(2) !== 0
+                          (order.price - order.closedPrice) * order.quantity ===
+                          0
                             ? 'black'
-                            : order.profitOrLoss > 0
+                            : order.closedPrice > order.price
                             ? 'green'
                             : 'red'
                         }
                       >
-                        {formatDollar(order.profitOrLoss)}
+                        {formatDollar(
+                          (order.closedPrice - order.price) * order.quantity
+                        )}
                       </td>
                     )}
                   </tr>

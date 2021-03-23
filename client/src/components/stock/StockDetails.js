@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, ListGroup, Card, Button, Table } from 'react-bootstrap';
-import { formatLargeDollar } from '../../utils/number';
+import { formatLargeDollar, formatDollar } from '../../utils/number';
 
 const StockDetails = ({ stock }) => {
   return (
@@ -12,30 +12,30 @@ const StockDetails = ({ stock }) => {
           <Row>
             <Col>Previous Close:</Col>
             <Col>
-              ${stock.previousClose && stock.previousClose.toLocaleString()}
+              {stock.previousClose && formatDollar(stock.previousClose)}
             </Col>
           </Row>
           <Row>
             <Col>Open:</Col>
-            <Col>{stock.open ? '$' + stock.open.toLocaleString() : 'N/A'}</Col>
+            <Col>{stock.open ? formatDollar(stock.open) : 'N/A'}</Col>
           </Row>
           <Row>
             <Col>Day Low:</Col>
-            <Col>{stock.low ? '$' + stock.low.toLocaleString() : 'N/A'}</Col>
+            <Col>{stock.low ? formatDollar(stock.low) : 'N/A'}</Col>
           </Row>
           <Row>
             <Col>Day High:</Col>
-            <Col>{stock.high ? '$' + stock.high.toLocaleString() : 'N/A'}</Col>
+            <Col>{stock.high ? formatDollar(stock.high) : 'N/A'}</Col>
           </Row>
         </Col>
         <Col>
           <Row>
             <Col>52 Week Low:</Col>
-            <Col>${stock.week52Low && stock.week52Low.toLocaleString()}</Col>
+            <Col>{stock.week52Low && formatDollar(stock.week52Low)}</Col>
           </Row>
           <Row>
             <Col>52 Week High:</Col>
-            <Col>${stock.week52Low && stock.week52Low.toLocaleString()}</Col>
+            <Col>{stock.week52High && formatDollar(stock.week52High)}</Col>
           </Row>
           <Row>
             <Col>Volume:</Col>

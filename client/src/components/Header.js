@@ -56,9 +56,7 @@ const Header = () => {
             </NavDropdown>
           ) : (
             <LinkContainer to="/login">
-              <Nav.Link>
-                <i className="fas fa-user"></i> Sign In
-              </Nav.Link>
+              <Nav.Link>Sign In</Nav.Link>
             </LinkContainer>
           )}
         </Nav>
@@ -79,9 +77,7 @@ const Header = () => {
             </>
           ) : (
             <LinkContainer to="/login">
-              <Nav.Link>
-                <i className="fas fa-user"></i> Sign In
-              </Nav.Link>
+              <Nav.Link>Sign In</Nav.Link>
             </LinkContainer>
           )}
         </Nav>

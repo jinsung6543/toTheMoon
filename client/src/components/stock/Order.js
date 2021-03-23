@@ -16,6 +16,7 @@ import {
   buyStock,
   sellStock,
 } from '../../redux/actions/stockActions';
+import { formatDollar } from '../../utils/number';
 
 const Order = ({ symbol, price }) => {
   const [quantity, setQuantity] = useState('Enter quantity');
@@ -61,7 +62,6 @@ const Order = ({ symbol, price }) => {
   };
 
   const sellHandler = (e) => {
-    const profitOrLoss = stock.price - price;
     if (isNaN(quantity) || quantity <= 0) {
       renderTransactionMessage('You must enter valid quantity');
     } else if (stock.quantity < quantity) {
@@ -70,7 +70,14 @@ const Order = ({ symbol, price }) => {
       renderTransactionMessage(
         `Order filled. Sell ${quantity} @ $${price.toFixed(2)}`
       );
-      dispatch(sellStock({ symbol, price, quantity, profitOrLoss }));
+      dispatch(
+        sellStock({
+          symbol,
+          price: stock.price,
+          closedPrice: price,
+          quantity,
+        })
+      );
     }
 
     setQuantity('Enter quantity');
@@ -86,10 +93,7 @@ const Order = ({ symbol, price }) => {
       {userInfo ? (
         <>
           <ListGroup.Item>
-            Cash: $
-            {user &&
-              user.cash &&
-              parseFloat(user.cash.toFixed(2)).toLocaleString()}
+            Cash: {user && user.cash && formatDollar(user.cash)}
           </ListGroup.Item>
 
           <ListGroup.Item>
@@ -99,9 +103,8 @@ const Order = ({ symbol, price }) => {
                 0
               ) : (
                 <span>
-                  {stock.quantity && stock.quantity.toLocaleString()} @ $
-                  {stock.price &&
-                    parseFloat(stock.price.toFixed(2)).toLocaleString()}
+                  {stock.quantity && stock.quantity.toLocaleString()} @{' '}
+                  {stock.price && formatDollar(stock.price)}
                 </span>
               ))}
           </ListGroup.Item>

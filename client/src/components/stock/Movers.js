@@ -9,6 +9,7 @@ import {
   getLosers,
   getMostActive,
 } from '../../redux/actions/stockActions';
+import { formatDollar } from '../../utils/number';
 
 const Movers = ({ type }) => {
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ const Movers = ({ type }) => {
                   <td className={stock.change > 0 ? 'green' : 'red'}>
                     {(stock.changePercent * 100).toFixed(2)}%
                   </td>
-                  <td>${stock.latestPrice.toFixed(2)}</td>
+                  <td>{formatDollar(stock.latestPrice)}</td>
                 </tr>
               ))}
           </tbody>

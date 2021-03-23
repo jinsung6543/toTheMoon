@@ -11,6 +11,7 @@ import {
 } from '../redux/actions/stockActions';
 import StockChart from '../components/stock/StockChart';
 import StockDetails from '../components/stock/StockDetails';
+import { formatDollar } from '../utils/number';
 
 const StockDetailsScreen = ({ match }) => {
   const refWidth = useRef(null);
@@ -56,7 +57,7 @@ const StockDetailsScreen = ({ match }) => {
         ) : (
           <>
             <Row>
-              <Col>
+              <Col style={{ paddingTop: '0' }}>
                 <ListGroup variant="flush">
                   <ListGroup.Item className="border-top-radius stock-details-title">
                     <h3>{stock.companyName}</h3>
@@ -64,7 +65,7 @@ const StockDetailsScreen = ({ match }) => {
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <h1 className="inline">
-                      ${stock.latestPrice && stock.latestPrice.toFixed(2)}
+                      {stock.latestPrice && formatDollar(stock.latestPrice)}
                     </h1>
                     <span className={stock.change > 0 ? 'green' : 'red'}>
                       {' '}
@@ -79,7 +80,7 @@ const StockDetailsScreen = ({ match }) => {
                         <span
                           className={stock.extendedChange > 0 ? 'green' : 'red'}
                         >
-                          ${stock.extendedPrice}(
+                          {formatDollar(stock.extendedPrice)}(
                           {stock.extendedChangePercent &&
                             (stock.extendedChangePercent * 100).toFixed(2)}
                           %)

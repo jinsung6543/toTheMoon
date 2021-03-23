@@ -15,16 +15,15 @@ const orderSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    closedPrice: {
+      type: Number,
+    },
     quantity: {
       type: Number,
       required: true,
     },
     buyOrSell: {
       type: String,
-      required: true,
-    },
-    profitOrLoss: {
-      type: Number,
       required: true,
     },
   },

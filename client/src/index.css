@@ -292,6 +292,7 @@ main {
 	background-color: rgb(20, 21, 26);
 	padding-top: 10px;
 	color: #ebebeb;
+	min-height: 90vh;
 }
 
 .stock-details-heading {
