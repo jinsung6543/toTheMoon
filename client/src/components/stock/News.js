@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, CardColumns, Col } from 'react-bootstrap';
+import { Card, CardColumns } from 'react-bootstrap';
 import moment from 'moment';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';

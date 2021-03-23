@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 import Header from './Header';
 import Footer from './Footer';
 import HomeScreen from '../screens/HomeScreen';
@@ -9,7 +8,6 @@ import StockDetailsScreen from '../screens/StockDetailsScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DashboardScreen from '../screens/DashboardScreen';
-import StockChart from './stock/StockChart';
 
 function App() {
   return (

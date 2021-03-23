@@ -1,4 +1,4 @@
-import axios from 'axios';
+import heroku from '../../apis/heroku';
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -26,7 +26,7 @@ export const login = (email, password) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(
+    const { data } = await heroku.post(
       '/api/users/login',
       { email, password },
       config
@@ -66,7 +66,7 @@ export const register = (name, email, password) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(
+    const { data } = await heroku.post(
       '/api/users',
       { name, email, password },
       config
@@ -109,7 +109,7 @@ export const getUserProfile = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/users/${id}`, config);
+    const { data } = await heroku.get(`/api/users/${id}`, config);
 
     dispatch({
       type: USER_PROFILE_SUCCESS,
@@ -143,7 +143,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put(`/api/users/profile`, user, config);
+    const { data } = await heroku.put(`/api/users/profile`, user, config);
 
     dispatch({
       type: USER_PROFILE_UPDATE_SUCCESS,

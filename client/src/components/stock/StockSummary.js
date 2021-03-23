@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import iex from '../../apis/iex';
 import { formatDollar } from '../../utils/number';
 
 const StockSummary = ({ stock, history }) => {
-  console.log(history);
   const [currentPrice, setCurrentPrice] = useState(0);
 
   useEffect(() => {

@@ -19,7 +19,7 @@ const Search = ({ history }) => {
 
   return (
     <>
-      <Form onSubmit={submitHandler} autocomplete="off">
+      <Form onSubmit={submitHandler} autoComplete="off">
         <InputGroup className="search-bar search-bar-md">
           <Form.Control
             type="text"
@@ -45,7 +45,7 @@ const Search = ({ history }) => {
           <Form
             onSubmit={submitHandler}
             style={{ width: '100%' }}
-            autocomplete="off"
+            autoComplete="off"
           >
             <Form.Control
               type="text"

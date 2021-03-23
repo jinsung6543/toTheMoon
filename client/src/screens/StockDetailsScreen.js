@@ -25,11 +25,7 @@ const StockDetailsScreen = ({ match }) => {
   const { loading, error, stock } = stockDetails;
 
   const stockChartData = useSelector((state) => state.stockChartData);
-  const {
-    loading: loadingChart,
-    error: errorChart,
-    chartData,
-  } = stockChartData;
+  const { loading: loadingChart, chartData } = stockChartData;
 
   useEffect(() => {
     setWidth(refWidth.current.offsetWidth - 30);

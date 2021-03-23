@@ -2,13 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Navbar,
-  Nav,
-  Container,
-  NavDropdown,
-  InputGroup,
-} from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { logout } from '../redux/actions/userActions';
 import Search from './Search';
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Form, Button, Row, Col, Table, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
@@ -73,7 +72,7 @@ const ProfileScreen = ({ history }) => {
           {error && <Message variant="danger">{error}</Message>}
           {success && <Message variant="success">Profile Updated</Message>}
           {loading && <Loader />}
-          <Form onSubmit={submitHandler} className="profile" autocomplete="off">
+          <Form onSubmit={submitHandler} className="profile" autoComplete="off">
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -128,7 +127,7 @@ const ProfileScreen = ({ history }) => {
             <Loader />
           ) : errorOrders ? (
             <Message variant="danger">{errorOrders}</Message>
-          ) : (
+          ) : orders.length > 0 ? (
             <Table hover responsive className="table-sm">
               <thead>
                 <tr>
@@ -182,6 +181,8 @@ const ProfileScreen = ({ history }) => {
                 ))}
               </tbody>
             </Table>
+          ) : (
+            <div className="my-4">You don't have any orders yet.</div>
           )}
         </Col>
       </Row>

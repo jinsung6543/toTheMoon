@@ -28,7 +28,6 @@ const RegisterScreen = ({ location, history }) => {
   }, [history, userInfo, redirect]);
 
   const submitHandler = (e) => {
-    console.log('registration complete');
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage('Passwords do not match');
@@ -43,7 +42,7 @@ const RegisterScreen = ({ location, history }) => {
       {message && <Message variant="danger">{message}</Message>}
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
-      <Form onSubmit={submitHandler} autocomplete="off">
+      <Form onSubmit={submitHandler} autoComplete="off">
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Table, Button, Container } from 'react-bootstrap';
+import React, { useEffect } from 'react';
+import { Table, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -15,11 +14,8 @@ const DashboardScreen = ({ history }) => {
   const stockPortfolio = useSelector((state) => state.stockPortfolio);
   const { loading, error, portfolio } = stockPortfolio;
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
   const userProfile = useSelector((state) => state.userProfile);
-  const { loading: loadingUser, error: errorUser, user } = userProfile;
+  const { user } = userProfile;
 
   useEffect(() => {
     dispatch(getUserProfile('profile'));
@@ -69,24 +65,32 @@ const DashboardScreen = ({ history }) => {
               </tr>
             </tbody>
           </Table>
-          <Table hover responsive className="table-sm">
-            <thead>
-              <tr>
-                <th>Symbol</th>
-                <th>Avg Price</th>
-                <th>Current price</th>
-                <th>Quantity</th>
-                <th>Mkt value</th>
-                <th>Change</th>
-                <th>Change %</th>
-              </tr>
-            </thead>
-            <tbody>
-              {portfolio.map((stock) => (
-                <StockSummary stock={stock} key={stock._id} history={history} />
-              ))}
-            </tbody>
-          </Table>
+          {portfolio.length > 0 ? (
+            <Table hover responsive className="table-sm">
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Avg Price</th>
+                  <th>Current price</th>
+                  <th>Quantity</th>
+                  <th>Mkt value</th>
+                  <th>Change</th>
+                  <th>Change %</th>
+                </tr>
+              </thead>
+              <tbody>
+                {portfolio.map((stock) => (
+                  <StockSummary
+                    stock={stock}
+                    key={stock._id}
+                    history={history}
+                  />
+                ))}
+              </tbody>
+            </Table>
+          ) : (
+            <div>You don't have any stocks yet.</div>
+          )}
         </>
       )}
     </Container>

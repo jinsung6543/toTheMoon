@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, ListGroup, Card, Button, Table } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { formatLargeDollar, formatDollar } from '../../utils/number';
 
 const StockDetails = ({ stock }) => {

@@ -19,7 +19,7 @@ import {
 import { formatDollar } from '../../utils/number';
 
 const Order = ({ symbol, price }) => {
-  const [quantity, setQuantity] = useState('Enter quantity');
+  const [quantity, setQuantity] = useState(0);
   const [transactionMessage, setTransactionMessage] = useState(null);
 
   const dispatch = useDispatch();
@@ -28,16 +28,16 @@ const Order = ({ symbol, price }) => {
   const { userInfo } = userLogin;
 
   const userProfile = useSelector((state) => state.userProfile);
-  const { loading: loadingU, error: errorU, user } = userProfile;
+  const { user } = userProfile;
 
   const stockHolding = useSelector((state) => state.stockHolding);
-  const { loading: loadingS, error: errorS, stock } = stockHolding;
+  const { stock } = stockHolding;
 
   const stockBuy = useSelector((state) => state.stockBuy);
-  const { success: successBuy, error: errorBuy } = stockBuy;
+  const { success: successBuy } = stockBuy;
 
   const stockSell = useSelector((state) => state.stockSell);
-  const { success: successSell, error: errorSell } = stockSell;
+  const { success: successSell } = stockSell;
 
   useEffect(() => {
     if (!userInfo) {
@@ -58,7 +58,7 @@ const Order = ({ symbol, price }) => {
       );
       dispatch(buyStock({ symbol, price, quantity }));
     }
-    setQuantity('Enter quantity');
+    setQuantity(0);
   };
 
   const sellHandler = (e) => {
@@ -80,7 +80,7 @@ const Order = ({ symbol, price }) => {
       );
     }
 
-    setQuantity('Enter quantity');
+    setQuantity(0);
   };
 
   const renderTransactionMessage = (message) => {

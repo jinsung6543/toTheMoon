@@ -146,7 +146,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .title {
 	position: relative;
-	height: 25vh;
+	height: 20rem;
 	padding-top: 2%;
 	background-color: #0B0E11;
 }
@@ -261,17 +261,19 @@ main {
 }
 
 /* carousel */
+.carousel-div {
+	background-color: #000;
+}
+
 .carousel {
-	position: absolute;
 	height: 35%;
 	width: 100%;
-	bottom: 0;
 }
 
 .carousel-caption {
   position: absolute;
   top: 0;
-  padding: 10px;
+  padding: 15px;
   box-sizing: border-box;
 }
 
@@ -287,9 +289,6 @@ main {
 	height: 120px;
 }
 
-.carousel-indicators {
-	bottom: -1rem;
-}
 
 /* stock details screen */
 .stock-details-screen {
@@ -325,13 +324,13 @@ main {
 	}
 
 	.title {
-		height: 40vh;
+		height: 10rem;
+		max-height: 300px;
 	}
 
 	.greeting {
 		padding: 1rem;
 	}
-
  }
 
 /* Small devices (landscape phones, less than 768px) */
@@ -342,10 +341,6 @@ main {
 
 	.navbar-brand {
 		margin-right: 1rem;
-	}
-
-	.greeting {
-		padding-top: 10%;
 	}
 
 	.fas {
@@ -392,7 +387,22 @@ main {
 	}
 
 	.title {
-		height: 38vh;
+		height: 20rem;
+		max-height: 300px;
+	}
+
+	.register-button {
+		margin: .2rem auto;
+		display: block;
+		background-color: #F0B90B;
+	}
+
+	.carousel-caption {
+		padding: 10px;
+	}
+
+	.carousel-indicators {
+		bottom: -1rem;
 	}
  }
 

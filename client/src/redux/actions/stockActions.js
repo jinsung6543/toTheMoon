@@ -1,4 +1,4 @@
-import axios from 'axios';
+import heroku from '../../apis/heroku';
 import iex from '../../apis/iex';
 import {
   STOCK_BUY_FAIL,
@@ -180,7 +180,7 @@ export const getStockHolding = (symbol) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/stocks/${symbol}`, config);
+    const { data } = await heroku.get(`/api/stocks/${symbol}`, config);
 
     dispatch({
       type: STOCK_HOLDING_SUCCESS,
@@ -216,7 +216,7 @@ export const buyStock = (stock) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(
+    const { data } = await heroku.post(
       `/api/stocks/buy`,
       { symbol, price: price.toFixed(2), quantity },
       config
@@ -256,7 +256,7 @@ export const sellStock = (stock) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(
+    const { data } = await heroku.post(
       `/api/stocks/sell`,
       {
         symbol,
@@ -299,7 +299,7 @@ export const getPortfolio = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/stocks/portfolio`, config);
+    const { data } = await heroku.get(`/api/stocks/portfolio`, config);
 
     dispatch({
       type: STOCK_PORTFOLIO_SUCCESS,
@@ -333,7 +333,7 @@ export const getOrderList = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/stocks/orders`, config);
+    const { data } = await heroku.get(`/api/stocks/orders`, config);
 
     dispatch({
       type: STOCK_ORDER_LIST_SUCCESS,
@@ -356,7 +356,7 @@ export const getStockChartData = (symbol) => async (dispatch) => {
   });
 
   try {
-    const { data } = await axios.get(
+    const { data } = await heroku.get(
       `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=full&apikey=${process.env.REACT_APP_ALPHA_VANTAGE_TOKEN}`
     );
 

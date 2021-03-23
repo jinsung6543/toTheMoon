@@ -1,14 +1,11 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Button, Container, Tabs, Tab } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import Search from '../components/Search';
 import Movers from '../components/stock/Movers';
 import StockCarousel from '../components/stock/StockCarousel';
 
 const HomeScreen = ({ history }) => {
-  const dispatch = useDispatch();
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -16,14 +13,18 @@ const HomeScreen = ({ history }) => {
     <>
       <div
         className="title"
-        style={{
-          backgroundImage: `url(${
-            process.env.PUBLIC_URL + '/images/backgroundCropped.jpg'
-          })`,
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-        }}
+        style={
+          !userInfo
+            ? {
+                backgroundImage: `url(${
+                  process.env.PUBLIC_URL + '/images/backgroundCropped.jpg'
+                })`,
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+              }
+            : { display: 'none' }
+        }
       >
         <div className="greeting">
           <h1>Buy &amp; sell stocks in minutes</h1>
@@ -36,6 +37,8 @@ const HomeScreen = ({ history }) => {
             </Button>
           </LinkContainer>
         )}
+      </div>
+      <div className="carousel-div">
         <StockCarousel />
       </div>
       <Container>
