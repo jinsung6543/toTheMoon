@@ -163,7 +163,10 @@ export const getNews = (symbol) => async (dispatch) => {
   }
 };
 
-export const getStockHolding = (symbol) => async (dispatch, getState) => {
+export const getStockHolding = (symbol, userId) => async (
+  dispatch,
+  getState
+) => {
   dispatch({
     type: STOCK_HOLDING_REQUEST,
   });
@@ -180,7 +183,10 @@ export const getStockHolding = (symbol) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await heroku.get(`/api/stocks/${symbol}`, config);
+    const { data } = await heroku.get(
+      `/api/stocks/${symbol}/${userInfo._id}`,
+      config
+    );
 
     dispatch({
       type: STOCK_HOLDING_SUCCESS,

@@ -29,20 +29,20 @@ const StockSummary = ({ stock, history }) => {
       <td>{formatDollar(stock.quantity * stock.price)}</td>
       <td
         className={
-          stock.price - currentPrice <= 0.004
+          currentPrice - stock.price <= 0.004
             ? 'black'
-            : stock.price < currentPrice
+            : currentPrice > stock.price
             ? 'green'
             : 'red'
         }
       >
-        {formatDollar(stock.price - currentPrice)}
+        {formatDollar((currentPrice - stock.price) * stock.quantity)}
       </td>
       <td
         className={
-          stock.price - currentPrice <= 0.004
+          currentPrice - stock.price <= 0.004
             ? 'black'
-            : stock.price < currentPrice
+            : currentPrice > stock.price
             ? 'green'
             : 'red'
         }

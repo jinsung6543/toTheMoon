@@ -15,7 +15,7 @@ export const buyStock = asyncHandler(async (req, res) => {
     throw new Error('Invalid quantity');
   } else {
     let avgPrice, totalQuantity, existingStock;
-    existingStock = await Stock.findOne({ symbol });
+    existingStock = await Stock.findOne({ symbol, user });
 
     if (existingStock) {
       const total = existingStock.quantity + quantity;
@@ -62,7 +62,7 @@ export const sellStock = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   let totalQuantity, existingStock;
-  existingStock = await Stock.findOne({ symbol });
+  existingStock = await Stock.findOne({ symbol, user });
 
   if (!existingStock || quantity > existingStock.quantity) {
     res.status(400);
@@ -105,11 +105,11 @@ export const sellStock = asyncHandler(async (req, res) => {
 });
 
 // @desc  Get stock by symbol
-// @route GET /api/stocks/:symbol
+// @route GET /api/stocks/:symbol/:id
 // @access Private
 export const getStockBySymbol = asyncHandler(async (req, res) => {
-  const { symbol } = req.params;
-  const stock = await Stock.findOne({ symbol });
+  const { symbol, id } = req.params;
+  const stock = await Stock.findOne({ symbol, user: id });
 
   if (stock) {
     res.json(stock);

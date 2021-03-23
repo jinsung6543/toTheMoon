@@ -15,7 +15,7 @@ router.route('/buy').post(protect, buyStock);
 router.route('/sell').post(protect, sellStock);
 router.route('/portfolio').get(protect, getPortfolio);
 router.route('/orders').get(protect, getOrders);
-router.route('/:symbol').get(protect, getStockBySymbol);
+router.route('/:symbol/:id').get(protect, getStockBySymbol);
 router.route('/:id').get(protect, getOrderById);
 
 export default router;
