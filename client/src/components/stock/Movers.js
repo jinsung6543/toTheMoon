@@ -11,7 +11,7 @@ import {
 } from '../../redux/actions/stockActions';
 import { formatDollar } from '../../utils/number';
 
-const Movers = ({ type }) => {
+const Movers = ({ type, history }) => {
   const dispatch = useDispatch();
 
   const stockMovers = useSelector((state) =>
@@ -30,6 +30,10 @@ const Movers = ({ type }) => {
       ? dispatch(getGainers())
       : dispatch(getLosers());
   }, [dispatch, type]);
+
+  const rowClickHandler = (symbol) => {
+    history.push(`/quote/${symbol.toUpperCase()}`);
+  };
 
   return (
     <>
@@ -51,15 +55,13 @@ const Movers = ({ type }) => {
           <tbody>
             {stocks &&
               stocks.map((stock) => (
-                <tr key={stock.symbol}>
-                  <td>
-                    <Link to={`/quote/${stock.symbol}`}>{stock.symbol}</Link>
-                  </td>
-                  <td>
-                    <Link to={`/quote/${stock.symbol}`}>
-                      {stock.companyName}
-                    </Link>
-                  </td>
+                <tr
+                  key={stock.symbol}
+                  onClick={() => rowClickHandler(stock.symbol)}
+                  className="stock-row"
+                >
+                  <td>{stock.symbol}</td>
+                  <td>{stock.companyName}</td>
                   <td>
                     {stock.volume ? stock.volume.toLocaleString() : 'N/A'}
                   </td>

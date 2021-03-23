@@ -6,7 +6,7 @@ import Search from '../components/Search';
 import Movers from '../components/stock/Movers';
 import StockCarousel from '../components/stock/StockCarousel';
 
-const HomeScreen = () => {
+const HomeScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -46,10 +46,10 @@ const HomeScreen = () => {
         <div className="movers">
           <Tabs defaultActiveKey="gainers">
             <Tab eventKey="gainers" title="Gainers">
-              <Movers type="gainers" />
+              <Movers type="gainers" history={history} />
             </Tab>
             <Tab eventKey="losers" title="Losers">
-              <Movers type="losers" />
+              <Movers type="losers" history={history} />
             </Tab>
           </Tabs>
         </div>

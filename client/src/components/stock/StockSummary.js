@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import iex from '../../apis/iex';
 import { formatDollar } from '../../utils/number';
 
-const StockSummary = ({ stock }) => {
+const StockSummary = ({ stock, history }) => {
+  console.log(history);
   const [currentPrice, setCurrentPrice] = useState(0);
 
   useEffect(() => {
@@ -17,11 +18,13 @@ const StockSummary = ({ stock }) => {
     return () => setCurrentPrice(0);
   }, [stock]);
 
+  const rowClickHandler = (symbol) => {
+    history.push(`/quote/${symbol.toUpperCase()}`);
+  };
+
   return (
-    <tr>
-      <td>
-        <Link to={`/quote/${stock.symbol}`}>{stock.symbol}</Link>
-      </td>
+    <tr onClick={() => rowClickHandler(stock.symbol)} className="stock-row">
+      <td>{stock.symbol}</td>
       <td>{stock.price && formatDollar(stock.price)}</td>
       <td>{formatDollar(currentPrice)}</td>
       <td>{stock.quantity.toLocaleString()}</td>

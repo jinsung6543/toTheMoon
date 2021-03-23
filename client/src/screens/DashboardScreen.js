@@ -9,7 +9,7 @@ import { getUserProfile } from '../redux/actions/userActions';
 import StockSummary from '../components/stock/StockSummary';
 import { formatDollar } from '../utils/number';
 
-const DashboardScreen = () => {
+const DashboardScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   const stockPortfolio = useSelector((state) => state.stockPortfolio);
@@ -83,7 +83,7 @@ const DashboardScreen = () => {
             </thead>
             <tbody>
               {portfolio.map((stock) => (
-                <StockSummary stock={stock} key={stock._id} />
+                <StockSummary stock={stock} key={stock._id} history={history} />
               ))}
             </tbody>
           </Table>

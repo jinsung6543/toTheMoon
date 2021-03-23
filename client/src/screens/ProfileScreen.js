@@ -57,6 +57,10 @@ const ProfileScreen = ({ history }) => {
     }
   };
 
+  const rowClickHandler = (symbol) => {
+    history.push(`/quote/${symbol.toUpperCase()}`);
+  };
+
   return (
     <Container>
       <Row>
@@ -69,7 +73,7 @@ const ProfileScreen = ({ history }) => {
           {error && <Message variant="danger">{error}</Message>}
           {success && <Message variant="success">Profile Updated</Message>}
           {loading && <Loader />}
-          <Form onSubmit={submitHandler} className="profile">
+          <Form onSubmit={submitHandler} className="profile" autocomplete="off">
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -138,10 +142,12 @@ const ProfileScreen = ({ history }) => {
               </thead>
               <tbody>
                 {orders.map((order) => (
-                  <tr key={order._id}>
-                    <td>
-                      <Link to={`/quote/${order.symbol}`}>{order.symbol}</Link>
-                    </td>
+                  <tr
+                    key={order._id}
+                    onClick={() => rowClickHandler(order.symbol)}
+                    className="stock-row"
+                  >
+                    <td>{order.symbol}</td>
                     <td>
                       {order.price && formatDollar(parseFloat(order.price))}
                     </td>
