@@ -14,6 +14,7 @@ const Search = ({ history }) => {
       history.push(`/quote/${keyword.toUpperCase()}`);
     }
     setKeyword('');
+    handleClose();
   };
 
   return (
