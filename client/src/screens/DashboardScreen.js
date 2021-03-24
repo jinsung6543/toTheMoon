@@ -11,6 +11,9 @@ import { formatDollar } from '../utils/number';
 const DashboardScreen = ({ history }) => {
   const dispatch = useDispatch();
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const stockPortfolio = useSelector((state) => state.stockPortfolio);
   const { loading, error, portfolio } = stockPortfolio;
 
@@ -18,9 +21,13 @@ const DashboardScreen = ({ history }) => {
   const { user } = userProfile;
 
   useEffect(() => {
-    dispatch(getUserProfile('profile'));
-    dispatch(getPortfolio());
-  }, [dispatch]);
+    if (!userInfo) {
+      history.push('/login');
+    } else {
+      dispatch(getUserProfile('profile'));
+      dispatch(getPortfolio());
+    }
+  }, [dispatch, history, userInfo]);
 
   return (
     <Container>

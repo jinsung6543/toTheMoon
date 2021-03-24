@@ -28,7 +28,7 @@ const StockDetailsScreen = ({ match }) => {
   const { loading: loadingChart, chartData } = stockChartData;
 
   useEffect(() => {
-    setWidth(refWidth.current.offsetWidth - 30);
+    refWidth.current && setWidth(refWidth.current.offsetWidth - 30);
 
     const handleResize = () => {
       setWidth(refWidth.current.offsetWidth - 30);
@@ -94,7 +94,9 @@ const StockDetailsScreen = ({ match }) => {
                 {loadingChart ? (
                   <Loader />
                 ) : error ? (
-                  <Message variant="danger">Error loading chart</Message>
+                  <Message variant="danger">
+                    Failed to connect to API. Please try again later.
+                  </Message>
                 ) : (
                   chartData && (
                     <StockChart

@@ -313,10 +313,6 @@ main {
 	position: absolute;
 }
 
-/* .list-group-item {
-	background-color: #ecf0f1;
-} */
-
 /* X-Small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) { 
 	body {

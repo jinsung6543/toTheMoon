@@ -20,7 +20,9 @@ const StockCarousel = () => {
   return loading ? (
     <Loader />
   ) : error ? (
-    <Message variant="danger">{error}</Message>
+    <Message variant="danger">
+      Failed to connect to API. Please try again later.
+    </Message>
   ) : (
     <Carousel pause="hover">
       {stocks.map((stock) => (

@@ -39,7 +39,9 @@ const Movers = ({ type, history }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message variant="danger">
+          Failed to connect to API. Please try again later.
+        </Message>
       ) : (
         <Table hover responsive className="table-sm">
           <thead>

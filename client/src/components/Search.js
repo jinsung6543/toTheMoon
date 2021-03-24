@@ -3,7 +3,6 @@ import { Form, Button, InputGroup, Modal } from 'react-bootstrap';
 
 const Search = ({ history }) => {
   const [keyword, setKeyword] = useState('');
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

@@ -61,7 +61,6 @@ const Order = ({ symbol, price }) => {
   };
 
   const sellHandler = (e) => {
-    console.log(stockHolding);
     if (isNaN(quantity) || quantity <= 0) {
       renderTransactionMessage('You must enter valid quantity');
     } else if (stock.message || stock.quantity < quantity) {
