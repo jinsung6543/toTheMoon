@@ -33,6 +33,8 @@ const RegisterScreen = ({ location, history }) => {
       setMessage('Name must have alphabet characters only');
     } else if (!email.match(/\S+@\S+\.\S+/)) {
       setMessage('Invalid email address');
+    } else if (password.length < 6) {
+      setMessage('Your password must contain at least 6 characters');
     } else if (password !== confirmPassword) {
       setMessage('Passwords do not match');
     } else {
