@@ -3,14 +3,18 @@ import iex from '../../apis/iex';
 import { formatDollar } from '../../utils/number';
 
 const StockSummary = ({ stock, history }) => {
-  const [currentPrice, setCurrentPrice] = useState(0);
+  const [currentPrice, setCurrentPrice] = useState(null);
 
   useEffect(() => {
     const getCurrentPrice = async () => {
-      const { data } = await iex.get(
-        `/${stock.symbol}/quote?token=${process.env.REACT_APP_IEX_API_TOKEN2}`
-      );
-      setCurrentPrice(data.latestPrice);
+      try {
+        const { data } = await iex.get(
+          `/${stock.symbol}/quote?token=${process.env.REACT_APP_IEX_API_TOKEN2}`
+        );
+        setCurrentPrice(data.latestPrice);
+      } catch (e) {
+        setCurrentPrice(null);
+      }
     };
     getCurrentPrice();
     return () => setCurrentPrice(0);
@@ -24,7 +28,7 @@ const StockSummary = ({ stock, history }) => {
     <tr onClick={() => rowClickHandler(stock.symbol)} className="stock-row">
       <td>{stock.symbol}</td>
       <td>{stock.price && formatDollar(stock.price)}</td>
-      <td>{formatDollar(currentPrice)}</td>
+      <td>{currentPrice && formatDollar(currentPrice)}</td>
       <td>{stock.quantity.toLocaleString()}</td>
       <td>{formatDollar(stock.quantity * stock.price)}</td>
       <td
@@ -36,18 +40,23 @@ const StockSummary = ({ stock, history }) => {
             : 'red'
         }
       >
-        {formatDollar((currentPrice - stock.price) * stock.quantity)}
+        {currentPrice &&
+          formatDollar((currentPrice - stock.price) * stock.quantity)}
       </td>
       <td
         className={
-          currentPrice - stock.price <= 0.004
+          currentPrice && currentPrice - stock.price <= 0.004
             ? 'black'
             : currentPrice > stock.price
             ? 'green'
             : 'red'
         }
       >
-        {(((currentPrice - stock.price) / stock.price) * 100).toFixed(2)}%
+        {(
+          ((currentPrice && currentPrice - stock.price) / stock.price) *
+          100
+        ).toFixed(2)}
+        %
       </td>
     </tr>
   );

@@ -21,6 +21,7 @@ import { formatDollar } from '../../utils/number';
 const Order = ({ symbol, price }) => {
   const [quantity, setQuantity] = useState(0);
   const [transactionMessage, setTransactionMessage] = useState(null);
+  const [error, setError] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -47,11 +48,13 @@ const Order = ({ symbol, price }) => {
   }, [dispatch, userInfo, symbol, successBuy, successSell]);
 
   const buyHandler = (e) => {
+    setError(true);
     if (isNaN(quantity) || quantity <= 0) {
       renderTransactionMessage('You must enter valid quantity');
     } else if (user.cash < price * quantity) {
       renderTransactionMessage('You have insufficient cash');
     } else {
+      setError(false);
       renderTransactionMessage(
         `Order filled. Buy ${quantity} @ $${price.toFixed(2)}`
       );
@@ -61,11 +64,13 @@ const Order = ({ symbol, price }) => {
   };
 
   const sellHandler = (e) => {
+    setError(true);
     if (isNaN(quantity) || quantity <= 0) {
       renderTransactionMessage('You must enter valid quantity');
     } else if (stock.message || stock.quantity < quantity) {
       renderTransactionMessage('You have insufficient stocks to sell');
     } else {
+      setError(false);
       renderTransactionMessage(
         `Order filled. Sell ${quantity} @ $${price.toFixed(2)}`
       );
@@ -149,7 +154,10 @@ const Order = ({ symbol, price }) => {
               </Col>
             </Row>
             {transactionMessage ? (
-              <Message className="transaction-message">
+              <Message
+                className="trasaction-message"
+                variant={error ? 'danger' : 'success'}
+              >
                 {transactionMessage}
               </Message>
             ) : (
