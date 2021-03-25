@@ -29,7 +29,7 @@ const RegisterScreen = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (!name.match(/^[A-Za-z]+$/)) {
+    if (!name.match(/^[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])*$/)) {
       setMessage('Name must have alphabet characters only');
     } else if (!email.match(/\S+@\S+\.\S+/)) {
       setMessage('Invalid email address');
